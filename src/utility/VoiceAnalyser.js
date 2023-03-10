@@ -7,20 +7,39 @@ import v5 from "../assets/audio/V5.m4a";
 import v6 from "../assets/audio/V6.m4a";
 import v7 from "../assets/audio/V7.m4a";
 import v8 from "../assets/audio/V8.m4a";
+import s1 from "../assets/audio/S1.m4a";
+import s2 from "../assets/audio/S2.m4a";
+import s3 from "../assets/audio/S3.m4a";
+import s4 from "../assets/audio/S4.m4a";
+import s5 from "../assets/audio/S5.m4a";
+import s6 from "../assets/audio/S6.m4a";
 import AudioCompare from "./AudioCompare";
 import Loader from "./Loader";
 /* eslint-disable */
 
-const AudioPath = {
-  0: v1,
-  1: v2,
-  2: v3,
-  3: v4,
-  4: v5,
-  5: v6,
-  6: v7,
-  7: v8,
+const AudioPath= {
+  1:{
+    0: v1,
+    1: v2,
+    2: v3,
+    3: v4,
+    4: v5,
+    5: v6,
+    6: v7,
+    7: v8,
+  },
+  2:{
+    0: s1,
+    1: s2,
+    2: s3,
+    3: s4,
+    4: s5,
+    5: s6,
+  }
+  
 };
+const currentIndex = localStorage.getItem('index');
+console.log('get current index', currentIndex);
 function VoiceAnalyser(props) {
   const [loadCnt, setLoadCnt] = useState(0);
   const [loader, setLoader] = useState(false);
@@ -31,7 +50,7 @@ function VoiceAnalyser(props) {
   const [ai4bharat, setAi4bharat] = useState("");
   const [temp_audio, set_temp_audio] = useState(null);
   const playAudio = (val) => {
-    set_temp_audio(new Audio(AudioPath[props.storyLine]));
+    set_temp_audio(new Audio(AudioPath[currentIndex][props.storyLine]));
     setPauseAudio(val);
   };
 

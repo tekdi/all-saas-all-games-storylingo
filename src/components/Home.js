@@ -1,7 +1,6 @@
 import React from "react";
 import "./index.css";
 import story from "../assets/story.png";
-import selectstory from "../assets/audio/selectstory.mp3";
 import { Link } from "react-router-dom";
 import homeicon from "../assets/homeicon.png";
 import logo from "../assets/logo.png";
@@ -11,15 +10,41 @@ const Data = [
     id: 1,
     avatar: "elephant",
     title: "ELEPHANT & THE ROPE",
-    story:
-      "Once upon a time, in a meadow filled with wildflowers, there lived a beautiful butterfly named Bella. Bella was known throughout the meadow for her unique smile, which sparkled and shone like the sun.",
+    story:{val:[
+      "A man was walking nearby to a group of elephants that was halted by a small rope tied to their front leg.",
+    
+      "He was amazed by the fact that the huge elephants are not even making an attempt to break the rope and set themselves free.",
+    
+      "He saw an elephant trainer standing beside them and he expressed his puzzled state of mind.",
+    
+      "The trainer said “When they are very young and much smaller we use the same size rope to tie them and, at that age, it’s enough to hold them.",
+    
+      "As they grow up, they are conditioned to believe they cannot break away. They believe the rope can still hold them, so they never try to break free.",
+    
+      "Moral of the story: It is the false belief of the elephants that denied their freedom for a lifetime.",
+    
+      "Likewise, many people are not trying to work towards success in their life just because they failed once before.",
+    
+      "So keep on trying and don’t get tied up with some false beliefs of failure.",
+      "The End! Check Result to find the Winner!!",
+    ]}
+     
   },
   {
     id: 2,
-    avatar: "banana",
-    title: "TOO MANY BANANAS",
-    story:
-      "Once upon a time, in a small village, there was a family who owned a banana farm. They had been growing bananas for generations and were known for producing the sweetest and most delicious bananas in the region.",
+    avatar: "sweet_sour",
+    title: "Sweet & Sour",
+    story:{
+      val:[
+        "Why is sea water salty, It is salty because there is salt in the sea",
+        "Why is the chocolate sweet, It is sweet because there is sugar in it",
+        "Why is a lime sour, The acid in the lime makes it sour",
+        "Is there salt in tears, Yes there is",
+        "Is there sugar in a mango, Yes there is sugar in ripe mango",
+        "Is there acid in curd, Yes there is some acid in curd"
+      ]
+    }
+      
   },
   {
     id: 3,
@@ -53,10 +78,8 @@ const Data = [
 
 function Home() {
   function storySelect(item) {
-    localStorage.setItem("story", item.story);
-    localStorage.setItem("audio", item.avatar);
-    let storyPlay = new Audio(selectstory);
-    storyPlay.play();
+    localStorage.setItem("story", JSON.stringify(item.story));
+    localStorage.setItem("index", item.id);
   }
 
   return (
@@ -91,7 +114,7 @@ function Home() {
             <Link
               to="/player"
               style={
-                index === 0
+                index < 2
                   ? { textDecoration: "none" }
                   : {
                     textDecoration: "none",
