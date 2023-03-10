@@ -9,6 +9,7 @@ import homeicon from "../assets/homeicon.png";
 import over from "../assets/over.png";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 const players = {
   p1: "ps1",
@@ -164,36 +165,7 @@ function Result() {
           <div className="coins">{score2}</div>
         </div>}
       </div>
-      <div className="footer1">
-        Powered by
-        <img
-          src={require(`../assets/sunbirdlogo.png`)}
-          className="logo-img"
-          alt="logo"
-        />
-        <img
-          src={require(`../assets/sunbird.png`)}
-          className="logo-img"
-          alt="sunbird"
-          style={{ padding: 0, height: "17px" }}
-        />
-      </div>
-      <div className="footer2">
-        Created with
-        <img
-          src={require(`../assets/love.png`)}
-          alt="love"
-          className="logo-img"
-        />{" "}
-        by
-        <a href="https://www.netskill.com" target="_blank">
-          <img
-            src={require(`../assets/netskill.png`)}
-            alt="netskill"
-            className="logo-img"
-          />
-        </a>
-      </div>
+      {/* <Footer /> */}
       <Link to="/" style={{ textDecoration: "none" }}>
         <div className="btn-result" style={{ right: 0 }}>
           <img height="30px" width="auto" src={home} alt={"home"} />
