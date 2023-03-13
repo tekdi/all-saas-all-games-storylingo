@@ -9,7 +9,6 @@ import logo from "../assets/logo.png";
 import VoiceAnalyser from "../utility/VoiceAnalyser";
 import SoundWave from "../utility/SoundWave";
 
-const temp = localStorage.getItem('story');
 // const Story =[
 //   "A man was walking nearby to a group of elephants that was halted by a small rope tied to their front leg.",
 
@@ -28,19 +27,27 @@ const temp = localStorage.getItem('story');
 //   "So keep on trying and don’t get tied up with some false beliefs of failure.",
 //   "The End! Check Result to find the Winner!!",
 // ];
-const currentIndex = localStorage.getItem('index');
 
 function Game() {
   const [recordedAudio, setRecordedAudio] = useState("");
   const [Story, setStory] = useState([]);
   const [voiceText, setVoiceText] = useState("");
+  const [currentIndex,setCurrentIndex] = useState(0);
   // const [newtextresult, setnewtextresult] = useState('');
   // const [voiceTextHighlight, setVoiceTextHighLight] = useState('');
-  useLayoutEffect(() => {
-    let story = JSON.parse(temp).val;
+  const initiateValues = async () => {
+    const currIndex = await localStorage.getItem("index");
+    setCurrentIndex(currIndex);
+    const temp = await localStorage.getItem("story");
+
+    let story = JSON.parse(temp)?.val;
     setStory(story);
-  }, [])
- 
+    console.log("fd", story, temp);
+  };
+  useLayoutEffect(() => {
+    initiateValues();
+  }, []);
+
   const [player1Score, setPlayer1Score] = useState(0);
   const [player2Score, setPlayer2Score] = useState(0);
   const [storyLine, setStoryLine] = useState(0);
@@ -48,7 +55,7 @@ function Game() {
   // const [fluencyResult, setfluencyresult] = useState('');
   let player1 = localStorage.getItem("p1");
   let player2 = localStorage.getItem("p2");
-  let numberOfPlayers = localStorage.getItem('players');
+  let numberOfPlayers = localStorage.getItem("players");
 
   function go_to_result(voiceText) {
     localStorage.setItem("contentText", Story[storyLine]);
@@ -98,12 +105,12 @@ function Game() {
         Number((correct_words / studentswords) * 100)
       );
     }
-    if (storyLine % 2 === 0 || numberOfPlayers === 'p1s') {
+    if (storyLine % 2 === 0 || numberOfPlayers === "p1s") {
       let temp = player1Score + result_per_words;
       setPlayer1Score(temp);
       localStorage.setItem("score1", temp);
     }
-    if (storyLine % 2 === 1 && numberOfPlayers !== 'p1s') {
+    if (storyLine % 2 === 1 && numberOfPlayers !== "p1s") {
       let temp = player2Score + result_per_words;
       setPlayer2Score(temp);
       localStorage.setItem("score2", temp);
@@ -148,7 +155,7 @@ function Game() {
           alt="logo"
           style={{ cursor: "pointer" }}
         />
-        <Link to='/'>
+        <Link to="/">
           <img
             src={homeicon}
             height="25px"
@@ -160,10 +167,16 @@ function Game() {
       <div>
         {storyLine <= Story.length - 1 && (
           <img
-            src={numberOfPlayers === 'p1s'?playerTitle:storyLine % 2 === 0 ? playerTitle : playerTitle2}
+            src={
+              numberOfPlayers === "p1s"
+                ? playerTitle
+                : storyLine % 2 === 0
+                ? playerTitle
+                : playerTitle2
+            }
             height="60px"
             alt="player1"
-            style={window.screen.width < 767 ? { marginTop: '50px' } : {}}
+            style={window.screen.width < 767 ? { marginTop: "50px" } : {}}
             className="playPlayerTitle"
           />
         )}
@@ -174,16 +187,20 @@ function Game() {
           storyLine <= Story.length - 1
             ? {}
             : {
-              gridTemplateColumns: "none",
-              height: "70vh",
-              alignItems: "center",
-            }
+                gridTemplateColumns: "none",
+                height: "70vh",
+                alignItems: "center",
+              }
         }
       >
-        {storyLine <=Story.length - 1 && (
+        {storyLine <= Story.length - 1 && (
           <div
             className="progress desktop-progress"
-            style={storyLine % 2 === 1  && numberOfPlayers !== 'p1s'? { opacity: 0.3 } : {}}
+            style={
+              storyLine % 2 === 1 && numberOfPlayers !== "p1s"
+                ? { opacity: 0.3 }
+                : {}
+            }
           >
             <div>
               <img
@@ -195,7 +212,11 @@ function Game() {
             <div className="barcontainer">
               <div
                 className="bar"
-                style={numberOfPlayers === 'p1s'?{ height: `${player1Score / Story.length}%` }:{ height: `${player1Score / (Story.length/2)}%` }}
+                style={
+                  numberOfPlayers === "p1s"
+                    ? { height: `${player1Score / Story.length}%` }
+                    : { height: `${player1Score / (Story.length / 2)}%` }
+                }
               ></div>
             </div>
             <div>
@@ -225,9 +246,11 @@ function Game() {
                 ? require(`../assets/story${currentIndex}${storyLine}.png`)
                 : require(`../assets/over.png`)
             }
-            className={storyLine <= Story.length - 1 ? "read-img" : "read-img-over"}
+            className={
+              storyLine <= Story.length - 1 ? "read-img" : "read-img-over"
+            }
             alt="read"
-          // style={storyLine <8  && window.screen.width>767? { height: "170px" } : {height:"90px !important" }}
+            // style={storyLine <8  && window.screen.width>767? { height: "170px" } : {height:"90px !important" }}
           />
           {/* <div className='story-txt'> {Story[storyLine]}</div> */}
           {voiceAnimate && (
@@ -236,17 +259,17 @@ function Game() {
             </div>
           )}
         </div>
-        {storyLine <= Story.length - 1 && numberOfPlayers !== 'p1s' && (
+        {storyLine <= Story.length - 1 && numberOfPlayers !== "p1s" && (
           <div
             className="desktop-progress"
             style={
               storyLine % 2 === 0
                 ? {
-                  opacity: 0.3,
-                  textAlign: "right",
-                  width: "91px",
-                  margin: "0 0 0 auto",
-                }
+                    opacity: 0.3,
+                    textAlign: "right",
+                    width: "91px",
+                    margin: "0 0 0 auto",
+                  }
                 : { textAlign: "right", width: "91px", margin: "0 0 0 auto" }
             }
           >
@@ -302,7 +325,8 @@ function Game() {
         {storyLine <= Story.length - 1 && (
           <div
             style={{
-              opacity: storyLine % 2 === 1 && numberOfPlayers !== 'p1s'? "0.3" : "1",
+              opacity:
+                storyLine % 2 === 1 && numberOfPlayers !== "p1s" ? "0.3" : "1",
             }}
             className="mobile-bar-container"
           >
@@ -335,7 +359,11 @@ function Game() {
               />
               <div
                 className="mobile-game-bar"
-                style={numberOfPlayers==='p1s'?{ width: `${player1Score / Story.length}%` }:{ width: `${player1Score / (Story.length/2)}%` }}
+                style={
+                  numberOfPlayers === "p1s"
+                    ? { width: `${player1Score / Story.length}%` }
+                    : { width: `${player1Score / (Story.length / 2)}%` }
+                }
               ></div>
             </div>
             <div>
@@ -348,7 +376,7 @@ function Game() {
             </div>
           </div>
         )}
-        {storyLine <= Story.length - 1 && numberOfPlayers !== 'p1s' && (
+        {storyLine <= Story.length - 1 && numberOfPlayers !== "p1s" && (
           <div
             style={{
               opacity: storyLine % 2 === 0 ? "0.3" : "1",
@@ -412,7 +440,7 @@ function Game() {
             setRecordedAudio={setRecordedAudio}
             setVoiceAnimate={setVoiceAnimate}
             storyLine={storyLine}
-          // updateStory={updateStory}
+            // updateStory={updateStory}
           />
         )}
       </div>

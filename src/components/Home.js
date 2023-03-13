@@ -10,7 +10,7 @@ const Data = [
   {
     id: 1,
     avatar: "elephant",
-    title: "ELEPHANT & THE ROPE",
+    title: "Elephant and the Rope",
     story:{val:[
       "A man was walking nearby to a group of elephants that was halted by a small rope tied to their front leg.",
     
