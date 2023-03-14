@@ -26,8 +26,7 @@ const Data = [
     
       "Likewise, many people are not trying to work towards success in their life just because they failed once before.",
     
-      "So keep on trying and don’t get tied up with some false beliefs of failure.",
-      "The End! Check Result to find the Winner!!",
+      "So keep on trying and don’t get tied up with some false beliefs of failure."
     ]}
      
   },
