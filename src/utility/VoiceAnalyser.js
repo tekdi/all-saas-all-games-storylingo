@@ -48,7 +48,13 @@ function VoiceAnalyser(props) {
   const [recordedAudioBase64, setRecordedAudioBase64] = useState("");
   const [audioPermission, setAudioPermission] = useState(null);
   const [ai4bharat, setAi4bharat] = useState("");
+  const [currentIndex, setCurrentIndex] = useState();
   const [temp_audio, set_temp_audio] = useState(null);
+  const initiateValues = async () => {
+    const currIndex = await localStorage.getItem("index");
+    setCurrentIndex(currIndex);
+  };
+
   const playAudio = (val) => {
     set_temp_audio(new Audio(AudioPath[currentIndex][props.storyLine]));
     setPauseAudio(val);
@@ -77,6 +83,11 @@ function VoiceAnalyser(props) {
     };
   }, [temp_audio]);
 
+  useEffect(()=>{
+    initiateValues();
+  },[])
+
+  
   useEffect(() => {
     if (loadCnt === 0) {
       getpermision();
