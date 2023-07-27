@@ -152,6 +152,7 @@ function VoiceAnalyser(props) {
 
   const fetchASROutput = (sourceLanguage, base64Data) => {
     const asr_api_key = process.env.REACT_APP_ASR_API_KEY;
+    const URL  = process.env.REACT_APP_URL;
     let samplingrate = 30000;
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -180,8 +181,8 @@ function VoiceAnalyser(props) {
       body: payload,
       redirect: "follow",
     };
-    // const apiURL_2 = `https://asr-api.ai4bharat.org/asr/v1/recognize/en`;
-    const apiURL = `https://api.dhruva.ai4bharat.org/services/inference/asr/?serviceId=${asr_language_code}`;
+
+    const apiURL = `${URL}/services/inference/asr/?serviceId=${asr_language_code}`;
     fetch(apiURL, requestOptions)
       .then((response) => response.text())
       .then((result) => {
