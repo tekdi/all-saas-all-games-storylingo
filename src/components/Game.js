@@ -42,7 +42,7 @@ function Game() {
 
     let story = JSON.parse(temp)?.val;
     setStory(story);
-    console.log("fd", story, temp);
+    // console.log("fd", story, temp);
   };
   useLayoutEffect(() => {
     initiateValues();

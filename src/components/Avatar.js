@@ -7,6 +7,7 @@ import homeicon from "../assets/homeicon.png";
 import logo from "../assets/logo.png";
 import newselection from "../assets/audio/selectplayer.mp3";
 import Footer from "./Footer";
+import { interactCall } from "../services/callTelemetryIntract";
 
 const Data = [
   { id: 1, avatar: "p1", selected: "" },
@@ -18,9 +19,9 @@ const Data = [
 function Avatar() {
   const [turn, selectTurn] = useState(0);
   const [avatarData, setAvatar] = useState(Data);
-  const [switchVal,setSwitch] = useState(false);
-  let numberOfPlayers = localStorage.getItem('players');
-  console.log('number of players', numberOfPlayers);
+  const [switchVal, setSwitch] = useState(false);
+  let numberOfPlayers = localStorage.getItem("players");
+  console.log("number of players", numberOfPlayers);
   useEffect(() => {
     console.log("comig here");
     setAvatar([
@@ -35,8 +36,8 @@ function Avatar() {
     let temp = avatarData.find((item) => item.id === id);
     let playerClicked = new Audio(newselection);
     playerClicked.play();
-    if(numberOfPlayers === 'p1s'){
-      avatarData.forEach((item,index) => avatarData[index].selected='')
+    if (numberOfPlayers === "p1s") {
+      avatarData.forEach((item, index) => (avatarData[index].selected = ""));
       temp.selected = "pt1";
       selectTurn(1);
       setSwitch(!switchVal);
@@ -58,17 +59,17 @@ function Avatar() {
       }
     }
   };
-  console.log('checking avatardata', turn,numberOfPlayers);
+  console.log("checking avatardata", turn, numberOfPlayers);
   return (
     <div className="main-container">
-       <div className="top-header">
+      <div className="top-header">
         <img
           src={logo}
           height="25px"
           alt="logo"
           style={{ cursor: "pointer" }}
         />
-        <Link to='/'>
+        <Link to="/">
           <img
             src={homeicon}
             height="25px"
@@ -83,14 +84,17 @@ function Avatar() {
           className="avatar-heading"
           height="70px"
           alt="avatar"
-          style={window.screen.width>767?{ marginTop: "20px" }:{marginTop:'60px'}}
+          style={
+            window.screen.width > 767
+              ? { marginTop: "20px" }
+              : { marginTop: "60px" }
+          }
         />
       </div>
       <div>
-        {numberOfPlayers==='p1s'?
-         <img src={turn1} height="45px" alt="turn1" />
-         :
-        turn === 0 ? (
+        {numberOfPlayers === "p1s" ? (
+          <img src={turn1} height="45px" alt="turn1" />
+        ) : turn === 0 ? (
           <img src={turn1} height="45px" alt="turn1" />
         ) : (
           <img src={turn2} height="45px" alt="turn2" />
@@ -100,7 +104,12 @@ function Avatar() {
         {avatarData.map((item) => {
           return (
             <div key={item.id} className="grid-item-av">
-              <div onClick={() => selectPlayer(item.id)}>
+              <div
+                onClick={() => {
+                  interactCall("DT");
+                  selectPlayer(item.id);
+                }}
+              >
                 <img
                   height="120px"
                   width="auto"
@@ -133,7 +142,7 @@ function Avatar() {
       </div>
       <div>
         <Link to="/play" style={{ textDecoration: "none" }}>
-          {(turn === 2 || (numberOfPlayers==='p1s' && turn===1)) && (
+          {(turn === 2 || (numberOfPlayers === "p1s" && turn === 1)) && (
             <div className="btn">
               <div className="btn-play">
                 <img

@@ -4,6 +4,7 @@ import mic from "../assets/mic.png";
 import listen from "../assets/listen.png";
 import pause from "../assets/pause.png";
 import mic_on from "../assets/mic.png";
+import { interactCall } from "../services/callTelemetryIntract";
 
 export default class AudioRecorderCompair extends Component {
   constructor(props) {
@@ -76,7 +77,10 @@ export default class AudioRecorderCompair extends Component {
                     src={mic_on}
                     className="micimg mic_stop_record"
                     onClick={() =>
-                      document.getElementById("stopaudio_compair").click()
+                      {
+                        interactCall('DT');
+                        document.getElementById("stopaudio_compair").click()
+                      }
                     }
                     alt="micon"
                     style={{
@@ -105,6 +109,7 @@ export default class AudioRecorderCompair extends Component {
                   {!this.props.pauseAudio ? (
                     <div
                       onClick={() => {
+                        interactCall('DT');
                         this.props.playAudio(true);
                       }}
                     >
@@ -130,6 +135,7 @@ export default class AudioRecorderCompair extends Component {
                   ) : (
                     <div
                       onClick={() => {
+                        interactCall('DT');
                         this.props.playAudio(false);
                       }}
                     >
@@ -157,8 +163,10 @@ export default class AudioRecorderCompair extends Component {
                     <img
                       src={mic}
                       className="micimg mic_record"
-                      onClick={() =>
+                      onClick={() =>{
+                        interactCall('DT');
                         document.getElementById("startaudio_compair").click()
+                      }
                       }
                       style={{
                         cursor: "pointer",
@@ -187,14 +195,24 @@ export default class AudioRecorderCompair extends Component {
               <button
                 className="btn"
                 id="startaudio_compair"
-                onClick={() => this.controlAudio("recording")}
+                onClick={() => 
+                  {
+                    interactCall('DT');
+                    this.controlAudio("recording")
+                  }
+                }
               >
                 Start
               </button>
               <button
                 className="btn"
                 id="stopaudio_compair"
-                onClick={() => this.controlAudio("inactive")}
+                onClick={() =>
+                  {
+                    interactCall('DT');
+                    this.controlAudio("inactive")
+                  }
+                  }
               >
                 Stop
               </button>
