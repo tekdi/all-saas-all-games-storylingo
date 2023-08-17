@@ -58,6 +58,7 @@ function Game() {
   let numberOfPlayers = localStorage.getItem("players");
 
   function go_to_result(voiceText) {
+    console.log("gotoResult");
     localStorage.setItem("contentText", Story[storyLine]);
     localStorage.setItem("recordedAudio", recordedAudio);
     localStorage.setItem("voiceText", voiceText);

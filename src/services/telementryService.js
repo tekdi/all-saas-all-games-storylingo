@@ -43,6 +43,7 @@ export const initialize = ({ context, config, metadata }) => {
         env: '',
         channel: context.channel,
         did: context.did,
+        authtoken: undefined,
         sid: context.sid,
         batchsize: process.env.REACT_APP_batchsize,
         mode: context.mode,
