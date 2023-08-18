@@ -1,7 +1,7 @@
-import React from 'react';
-import { generateUUID, uniqueId } from './utilService';
-import { CsTelemetryModule } from '@project-sunbird/client-services/telemetry';
-import jwt from 'jwt-decode';
+import React from "react";
+import { generateUUID, uniqueId } from "./utilService";
+import { CsTelemetryModule } from "@project-sunbird/client-services/telemetry";
+import jwt from "jwt-decode";
 
 var contentSessionId;
 let playSessionId;
@@ -9,27 +9,22 @@ let url;
 let config;
 let isBuddyLogin = checkTokenInLocalStorage();
 
-if (localStorage.getItem('token') !== null) {
-  let jwtToken = localStorage.getItem('token');
+if (localStorage.getItem("token") !== null) {
+  let jwtToken = localStorage.getItem("token");
   var userDetails = jwt(jwtToken);
   var emis_username = userDetails.emis_username;
 }
 
-
 function checkTokenInLocalStorage() {
-  const token = localStorage.getItem('buddyToken');
+  const token = localStorage.getItem("buddyToken");
   return !!token; // Returns true if token is present, false if token is null or undefined
 }
 
-
-if (localStorage.getItem('contentSessionId') !== null) {
-  contentSessionId = localStorage.getItem('contentSessionId');
+if (localStorage.getItem("contentSessionId") !== null) {
+  contentSessionId = localStorage.getItem("contentSessionId");
 } else {
   contentSessionId = uniqueId();
 }
-
-let getUrl = window.location.href;
-url = getUrl && getUrl.includes('#') && getUrl.split('#')[1].split('/')[1];
 
 export const initialize = ({ context, config, metadata }) => {
   context = context;
@@ -40,7 +35,7 @@ export const initialize = ({ context, config, metadata }) => {
     const telemetryConfig = {
       config: {
         pdata: context.pdata,
-        env: '',
+        env: "",
         channel: context.channel,
         did: context.did,
         authtoken: undefined,
@@ -51,9 +46,10 @@ export const initialize = ({ context, config, metadata }) => {
         apislug: context.apislug,
         endpoint: context.endpoint,
         tags: context.tags,
+        enableValidation: true,
         cdata: [
-          { id: contentSessionId, type: 'ContentSession' },
-          { id: playSessionId, type: 'PlaySession' },
+          { id: contentSessionId, type: "ContentSession" },
+          { id: playSessionId, type: "PlaySession" },
         ],
       },
       userOrgDetails: {},
@@ -63,125 +59,135 @@ export const initialize = ({ context, config, metadata }) => {
   }
 };
 
-export const start = duration => {
-    CsTelemetryModule.instance.telemetryService.raiseStartTelemetry({
-      options: getEventOptions(),
-      edata: {
-        type: 'content',
-        mode: 'play',
-        stageid: url,
-        duration: Number((duration / 1e3).toFixed(2)),
-      },
-    });
+export const start = (duration) => {
+  CsTelemetryModule.instance.telemetryService.raiseStartTelemetry({
+    options: getEventOptions(),
+    edata: {
+      type: "content",
+      mode: "play",
+      stageid: "games",
+      duration: Number((duration / 1e3).toFixed(2)),
+    },
+  });
 };
 
 export const response = (context, telemetryMode) => {
   if (checkTelemetryMode(telemetryMode)) {
-      CsTelemetryModule.instance.telemetryService.raiseResponseTelemetry(
-        {
-          ...context,
-        },
-        getEventOptions()
-      );
-  }
-
-};
-
-export const end = () => {
-    CsTelemetryModule.instance.telemetryService.raiseEndTelemetry({
-      edata: {
-        type: 'content',
-        mode: 'play',
-        pageid: url,
-        summary: [],
-        duration: '000',
+    CsTelemetryModule.instance.telemetryService.raiseResponseTelemetry(
+      {
+        ...context,
       },
-    });
+      getEventOptions()
+    );
+  }
 };
 
-export const interact = (telemetryMode) => {
+export const end = (url) => {
+  CsTelemetryModule.instance.telemetryService.raiseEndTelemetry({
+    edata: {
+      type: "content",
+      mode: "play",
+      pageid: url || "",
+      summary: [],
+      duration: "000",
+    },
+  });
+};
+
+export const interact = (id, url, subtype, telemetryMode) => {
   if (checkTelemetryMode(telemetryMode)) {
     CsTelemetryModule.instance.telemetryService.raiseInteractTelemetry({
       options: getEventOptions(),
-      edata: { type: 'TOUCH', subtype: '', pageid: url },
+      edata: { type: "TOUCH", id: id,  pageid: url, subtype: subtype || "", },
     });
   }
 };
 
-export const search = id => {
+export const search = (id) => {
   CsTelemetryModule.instance.telemetryService.raiseSearchTelemetry({
     options: getEventOptions(),
     edata: {
       // Required
-      type: 'content', // Required. content, assessment, asset
+      type: "content", // Required. content, assessment, asset
       query: id, // Required. Search query string
       filters: {}, // Optional. Additional filters
       sort: {}, // Optional. Additional sort parameters
-      correlationid: '', // Optional. Server generated correlation id (for mobile app's telemetry)
+      correlationid: "", // Optional. Server generated correlation id (for mobile app's telemetry)
       size: 0, // Required. Number of search results
       topn: [{}], // Required. top N (configurable) results with their score
     },
   });
 };
 
-export const impression = (currentPage, telemetryMode) => {
+export const impression = (id, uri, currentPage, telemetryMode) => {
   if (checkTelemetryMode(telemetryMode)) {
     CsTelemetryModule.instance.telemetryService.raiseImpressionTelemetry({
       options: getEventOptions(),
-      edata: { type: 'workflow', subtype: '', pageid: currentPage + '', uri: '' },
+      edata: {
+        type: "workflow",
+        subtype: "",
+        pageid: currentPage + "",
+        uri: uri||"",
+      },
     });
   }
 };
 
-export const error = (error, data,telemetryMode) => {
+export const error = (error, data, telemetryMode) => {
   if (checkTelemetryMode(telemetryMode)) {
     CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry({
       options: getEventOptions(),
       edata: {
         err: data.err,
         errtype: data.errtype,
-        stacktrace: error.toString() || '',
+        stacktrace: error.toString() || "",
       },
     });
   }
 };
 
-export const feedback = (data, contentId,telemetryMode) => {
+export const feedback = (data, contentId, telemetryMode) => {
   if (checkTelemetryMode(telemetryMode)) {
-      CsTelemetryModule.instance.telemetryService.raiseFeedBackTelemetry({
-        options: getEventOptions(),
-        edata: {
-          contentId: contentId,
-          rating: data,
-          comments: '',
-        },
-      });
+    CsTelemetryModule.instance.telemetryService.raiseFeedBackTelemetry({
+      options: getEventOptions(),
+      edata: {
+        contentId: contentId,
+        rating: data,
+        comments: "",
+      },
+    });
   }
 };
 
-function checkTelemetryMode(currentMode ){
-
-return (process.env.REACT_APP_TELEMETRY_MODE === 'ET' && currentMode === 'ET') ||(process.env.REACT_APP_TELEMETRY_MODE === 'NT' && (currentMode === 'ET' || currentMode === 'NT')) || (process.env.REACT_APP_TELEMETRY_MODE === 'DT' && (currentMode === 'ET' || currentMode === 'NT' || currentMode === 'DT'));
-
+function checkTelemetryMode(currentMode) {
+  return (
+    (process.env.REACT_APP_TELEMETRY_MODE === "ET" && currentMode === "ET") ||
+    (process.env.REACT_APP_TELEMETRY_MODE === "NT" &&
+      (currentMode === "ET" || currentMode === "NT")) ||
+    (process.env.REACT_APP_TELEMETRY_MODE === "DT" &&
+      (currentMode === "ET" || currentMode === "NT" || currentMode === "DT"))
+  );
 }
 
 export const getEventOptions = () => {
-  var emis_username = 'anonymous';
-  var buddyUserId = '';
+  var emis_username = "anonymous";
+  var buddyUserId = "";
 
-  if (localStorage.getItem('token') !== null) {
-    let jwtToken = localStorage.getItem('token');
+  if (localStorage.getItem("token") !== null) {
+    let jwtToken = localStorage.getItem("token");
     var userDetails = jwt(jwtToken);
     emis_username = userDetails.emis_username;
   }
 
   if (isBuddyLogin) {
-    let jwtToken = localStorage.getItem('buddyToken');
+    let jwtToken = localStorage.getItem("buddyToken");
     let buddyUserDetails = jwt(jwtToken);
     buddyUserId = buddyUserDetails.emis_username;
   }
-  const userType = isBuddyLogin ? 'Buddy User' : 'User';
-  const userId = isBuddyLogin  ? emis_username + '/' + buddyUserId : emis_username || 'anonymous'
+  const userType = isBuddyLogin ? "Buddy User" : "User";
+  const userId = isBuddyLogin
+    ? emis_username + "/" + buddyUserId
+    : emis_username || "anonymous";
 
   return {
     object: {},
@@ -195,13 +201,13 @@ export const getEventOptions = () => {
       env: process.env.REACT_APP_env,
       uid: `${
         isBuddyLogin
-          ? emis_username + '/' + buddyUserId
-          : emis_username || 'anonymous'
+          ? emis_username + "/" + buddyUserId
+          : emis_username || "anonymous"
       }`,
       cdata: [
-        { id: contentSessionId, type: 'ContentSession' },
-        { id: playSessionId, type: 'PlaySession' },
-        { id: userId, type: userType }
+        { id: contentSessionId, type: "ContentSession" },
+        { id: playSessionId, type: "PlaySession" },
+        { id: userId, type: userType },
       ],
       rollup: {},
     },
