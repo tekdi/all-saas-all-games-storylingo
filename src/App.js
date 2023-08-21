@@ -18,9 +18,7 @@ function App() {
   React.useEffect(() => {
     const setFp = async () => {
       const fp = await FingerprintJS.load();
-
       const { visitorId } = await fp.get();
-
       localStorage.setItem("did", visitorId);
     };
 
