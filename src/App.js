@@ -12,7 +12,6 @@ import { startEvent } from "./services/callTelemetryIntract";
 import { initialize, end } from "./services/telementryService";
 
 function App() {
-
   let ranonce = false;
 
   React.useEffect(() => {
@@ -46,10 +45,6 @@ function App() {
             ver: process.env.REACT_APP_ver, // Version of the App
             pid: process.env.REACT_APP_pid, // Optional. In case the component is distributed, then which instance of that component
           },
-          tags: [
-            // Defines the tags data
-            "",
-          ],
           timeDiff: 0, // Defines the time difference// Defines the object roll up data
           host: process.env.REACT_APP_host, // Defines the from which domain content should be load
           endpoint: process.env.REACT_APP_endpoint,
@@ -83,7 +78,6 @@ function App() {
       window.removeEventListener("beforeunload", cleanup);
     };
   }, []);
-
 
   return (
     <div className="App">

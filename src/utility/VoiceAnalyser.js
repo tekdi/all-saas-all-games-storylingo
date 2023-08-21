@@ -202,7 +202,6 @@ function VoiceAnalyser(props) {
         const studentTextArray = texttemp.split(" ");
 
         let tempteacherText = localStorage.getItem("contentText").toLowerCase();
-        console.log(tempteacherText);
 
         const teacherTextArray = tempteacherText.split(" ");
 
