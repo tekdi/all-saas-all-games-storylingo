@@ -60,8 +60,10 @@ function Player() {
           alt="player1"
           style={{ cursor: "pointer", marginBottom: "30px" }}
           onClick={() => {
-            interactCall("setPlayer", "player", "", "DT");
+            interactCall("setPlayer", "player", "DT", "");
             setPlayers("p1s");
+            localStorage.setItem("score1", 0);
+            localStorage.setItem("score2", 0);
           }}
         />
         <img
@@ -71,7 +73,7 @@ function Player() {
           alt="player2"
           style={{ cursor: "pointer" }}
           onClick={() => {
-            interactCall("setPlayer", "player", "", "DT");
+            interactCall("setPlayer", "player", "DT", "");
             setPlayers("p2s");
           }}
         />
@@ -88,7 +90,7 @@ function Player() {
                 : { opacity: 0.3, pointerEvents: "none" }
             }
             onClick={() => {
-              interactCall("setPlayers", "player", "", "DT");
+              interactCall("setPlayers", "player",  "DT", "");
               setPlayers(current);
             }}
           />

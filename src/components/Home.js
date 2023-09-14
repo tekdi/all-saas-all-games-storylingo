@@ -129,7 +129,7 @@ function Home() {
                 key={item.id}
                 className="grid-item"
                 onClick={() => {
-                  interactCall("storySelect", "home", "", "DT");
+                  interactCall("storySelect", "home","DT", "");
                   storySelect(item);
                 }}
               >

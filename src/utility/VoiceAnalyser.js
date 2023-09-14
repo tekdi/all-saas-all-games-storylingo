@@ -58,7 +58,7 @@ function VoiceAnalyser(props) {
   };
 
   const playAudio = (val) => {
-    interactCall("DT");
+    interactCall("playAudio", "", "DT", "play");
     set_temp_audio(new Audio(AudioPath[currentIndex][props.storyLine]));
     setPauseAudio(val);
   };
@@ -130,7 +130,7 @@ function VoiceAnalyser(props) {
         var reader = new FileReader();
         reader.readAsDataURL(request.response);
         reader.onload = function (e) {
-          console.log("DataURL:", e.target.result);
+          // console.log("DataURL:", e.target.result);
           var base64Data = e.target.result.split(",")[1];
           setRecordedAudioBase64(base64Data);
         };
@@ -200,15 +200,14 @@ function VoiceAnalyser(props) {
         let texttemp = apiResponse["output"][0]["source"].toLowerCase();
 
         const studentTextArray = texttemp.split(" ");
+        let tempteacherText = localStorage.getItem("contentText")?.toLowerCase();
 
-        let tempteacherText = localStorage.getItem("contentText").toLowerCase();
-
-        const teacherTextArray = tempteacherText.split(" ");
+        const teacherTextArray = tempteacherText?.split(" ");
 
         let student_correct_words_result = [];
         let student_incorrect_words_result = [];
-        let originalwords = teacherTextArray.length;
-        let studentswords = studentTextArray.length;
+        let originalwords = teacherTextArray?.length;
+        let studentswords = studentTextArray?.length;
         let wrong_words = 0;
         let correct_words = 0;
         let result_per_words = 0;
@@ -220,8 +219,8 @@ function VoiceAnalyser(props) {
           studentTextArray
         );
 
-        for (let i = 0; i < studentTextArray.length; i++) {
-          if (teacherTextArray.includes(studentTextArray[i])) {
+        for (let i = 0; i < studentTextArray?.length; i++) {
+          if (teacherTextArray?.includes(studentTextArray[i])) {
             correct_words++;
             student_correct_words_result.push(studentTextArray[i]);
           } else {

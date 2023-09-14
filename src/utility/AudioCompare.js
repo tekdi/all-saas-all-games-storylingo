@@ -76,7 +76,7 @@ export default class AudioRecorderCompair extends Component {
                     src={mic_on}
                     className="micimg mic_stop_record"
                     onClick={() => {
-                      interactCall("mic_stop", "play", "stop", "DT");
+                      interactCall("mic_stop", "play", "DT", "stop");
                       document.getElementById("stopaudio_compair").click();
                     }}
                     alt="micon"
@@ -106,7 +106,7 @@ export default class AudioRecorderCompair extends Component {
                   {!this.props.pauseAudio ? (
                     <div
                       onClick={() => {
-                        interactCall("listen", "play", "pause", "DT");
+                        interactCall("listen", "play", "DT", "pause");
                         this.props.playAudio(true);
                       }}
                     >
@@ -132,7 +132,7 @@ export default class AudioRecorderCompair extends Component {
                   ) : (
                     <div
                       onClick={() => {
-                        interactCall("pause", "play", "pause", "DT");
+                        interactCall("pause", "play", "DT", "pause");
                         this.props.playAudio(false);
                       }}
                     >
@@ -161,7 +161,7 @@ export default class AudioRecorderCompair extends Component {
                       src={mic}
                       className="micimg mic_record"
                       onClick={() => {
-                        interactCall("speak", "play", "play", "DT");
+                        interactCall("speak", "play", "DT", "play");
                         document.getElementById("startaudio_compair").click();
                       }}
                       style={{
@@ -192,7 +192,7 @@ export default class AudioRecorderCompair extends Component {
                 className="btn"
                 id="startaudio_compair"
                 onClick={() => {
-                  interactCall("Start", "play", "play", "DT");
+                  interactCall("Start", "play", "DT", "play");
                   this.controlAudio("recording");
                 }}
               >
@@ -202,7 +202,7 @@ export default class AudioRecorderCompair extends Component {
                 className="btn"
                 id="stopaudio_compair"
                 onClick={() => {
-                  interactCall("stop", "play", "pause", "DT");
+                  interactCall("stop", "play", "DT", "pause");
                   this.controlAudio("inactive");
                 }}
               >

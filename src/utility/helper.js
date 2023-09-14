@@ -22,7 +22,7 @@ export function replaceAll(string, search, replace) {
         words_result.push('0');
       }
     }
-    if (arr1.length < arr2.length)
+    if (arr1?.length < arr2?.length)
     {
       for (let i = arr1.length; i < arr2.length; i++){
         words_result.push('-1');

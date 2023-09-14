@@ -72,6 +72,10 @@ function Avatar() {
         <Link to="/">
           <img
             src={homeicon}
+            onClick={() => {            
+              localStorage.setItem("score1", 0);
+              localStorage.setItem("score2", 0);
+            }}
             height="25px"
             alt="homeicon"
             style={{ cursor: "pointer" }}
@@ -106,7 +110,7 @@ function Avatar() {
             <div key={item.id} className="grid-item-av">
               <div
                 onClick={() => {
-                  interactCall("selectPlayer", "avatar", "", "DT");
+                  interactCall("selectPlayer", "avatar", "DT", "");
                   selectPlayer(item.id);
                 }}
               >

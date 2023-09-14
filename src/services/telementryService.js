@@ -93,7 +93,7 @@ export const end = () => {
   });
 };
 
-export const interact = (id, url, currentPage, telemetryMode) => {
+export const interact = (id, url, telemetryMode, currentPage) => {
   if (checkTelemetryMode(telemetryMode)) {
     CsTelemetryModule.instance.telemetryService.raiseInteractTelemetry({
       options: getEventOptions(),
