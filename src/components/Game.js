@@ -8,6 +8,8 @@ import homeicon from "../assets/homeicon.png";
 import logo from "../assets/logo.png";
 import VoiceAnalyser from "../utility/VoiceAnalyser";
 import SoundWave from "../utility/SoundWave";
+import { response } from "../services/telementryService";
+import { compareArrays } from "../utility/helper";
 
 // const Story =[
 //   "A man was walking nearby to a group of elephants that was halted by a small rope tied to their front leg.",
@@ -64,6 +66,82 @@ function Game() {
     localStorage.setItem("contenttype", "Paragraph");
     localStorage.setItem("isfromresult", "learn");
     checkVoice(voiceText, Story[storyLine]);
+    generateResponseEvent(voiceText)
+  }
+
+
+  function generateResponseEvent(voiceText){
+   
+    let texttemp = voiceText.toLowerCase();
+    const studentTextArray = texttemp.split(" ");
+    let tempteacherText = localStorage.getItem("contentText")?.toLowerCase();
+
+    const teacherTextArray = tempteacherText?.split(" ");
+
+    let student_correct_words_result = [];
+    let student_incorrect_words_result = [];
+    let originalwords = teacherTextArray?.length;
+    let studentswords = studentTextArray?.length;
+    let wrong_words = 0;
+    let correct_words = 0;
+    let result_per_words = 0;
+    let result_per_words1 = 0;
+    let occuracy_percentage = 0;
+
+    let word_result_array = compareArrays(
+      teacherTextArray,
+      studentTextArray
+    );
+
+    for (let i = 0; i < studentTextArray?.length; i++) {
+      if (teacherTextArray?.includes(studentTextArray[i])) {
+        correct_words++;
+        student_correct_words_result.push(studentTextArray[i]);
+      } else {
+        wrong_words++;
+        student_incorrect_words_result.push(studentTextArray[i]);
+      }
+    }
+    //calculation method
+    if (originalwords >= studentswords) {
+      result_per_words = Math.round(
+        Number((correct_words / originalwords) * 100)
+      );
+    } else {
+      result_per_words = Math.round(
+        Number((correct_words / studentswords) * 100)
+      );
+    }
+
+    let word_result = result_per_words == 100 ? "correct" : "incorrect";
+
+    const responseStartTime = new Date().getTime();
+    const responseEndTime = new Date().getTime();
+    const responseDuration = Math.round(
+      (responseEndTime - responseStartTime) / 1000
+    );
+
+    response(
+      {
+        // Required
+        target: localStorage.getItem("contentText"), // Required. Target of the response
+        //"qid": "", // Required. Unique assessment/question id
+        type: "SPEAK", // Required. Type of response. CHOOSE, DRAG, SELECT, MATCH, INPUT, SPEAK, WRITE
+        values: [
+          { original_text: localStorage.getItem("contentText") },
+          { response_text: voiceText},
+          { response_correct_words_array: student_correct_words_result },
+          {
+            response_incorrect_words_array: student_incorrect_words_result,
+          },
+          { response_word_array_result: word_result_array },
+          { response_word_result: word_result },
+          { accuracy_percentage: result_per_words },
+          { duration: responseDuration },
+        ],
+      },
+      "ET"
+    );
   }
 
   function replaceAll(string, search, replace) {
@@ -116,6 +194,7 @@ function Game() {
     }
     let temp = storyLine + 1;
     setStoryLine(temp);
+    localStorage.setItem("storyline",temp);
     let coinAudio = new Audio(coin);
     if (coinAudio !== null) {
       coinAudio.play();
