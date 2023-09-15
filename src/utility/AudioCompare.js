@@ -4,6 +4,7 @@ import mic from "../assets/mic.png";
 import listen from "../assets/listen.png";
 import pause from "../assets/pause.png";
 import mic_on from "../assets/mic.png";
+import { interactCall } from "../services/callTelemetryIntract";
 
 export default class AudioRecorderCompair extends Component {
   constructor(props) {
@@ -64,7 +65,6 @@ export default class AudioRecorderCompair extends Component {
         console.log("error", err);
       },
     };
-
     return (
       <div>
         <div>
@@ -75,9 +75,10 @@ export default class AudioRecorderCompair extends Component {
                   <img
                     src={mic_on}
                     className="micimg mic_stop_record"
-                    onClick={() =>
-                      document.getElementById("stopaudio_compair").click()
-                    }
+                    onClick={() => {
+                      interactCall("mic_stop", "play", "DT", "stop");
+                      document.getElementById("stopaudio_compair").click();
+                    }}
                     alt="micon"
                     style={{
                       position: "fixed",
@@ -105,6 +106,7 @@ export default class AudioRecorderCompair extends Component {
                   {!this.props.pauseAudio ? (
                     <div
                       onClick={() => {
+                        interactCall("listen", "play", "DT", "pause");
                         this.props.playAudio(true);
                       }}
                     >
@@ -130,6 +132,7 @@ export default class AudioRecorderCompair extends Component {
                   ) : (
                     <div
                       onClick={() => {
+                        interactCall("pause", "play", "DT", "pause");
                         this.props.playAudio(false);
                       }}
                     >
@@ -157,9 +160,10 @@ export default class AudioRecorderCompair extends Component {
                     <img
                       src={mic}
                       className="micimg mic_record"
-                      onClick={() =>
-                        document.getElementById("startaudio_compair").click()
-                      }
+                      onClick={() => {
+                        interactCall("speak", "play", "DT", "play");
+                        document.getElementById("startaudio_compair").click();
+                      }}
                       style={{
                         cursor: "pointer",
                         padding: "5px",
@@ -187,14 +191,20 @@ export default class AudioRecorderCompair extends Component {
               <button
                 className="btn"
                 id="startaudio_compair"
-                onClick={() => this.controlAudio("recording")}
+                onClick={() => {
+                  interactCall("Start", "play", "DT", "play");
+                  this.controlAudio("recording");
+                }}
               >
                 Start
               </button>
               <button
                 className="btn"
                 id="stopaudio_compair"
-                onClick={() => this.controlAudio("inactive")}
+                onClick={() => {
+                  interactCall("stop", "play", "DT", "pause");
+                  this.controlAudio("inactive");
+                }}
               >
                 Stop
               </button>

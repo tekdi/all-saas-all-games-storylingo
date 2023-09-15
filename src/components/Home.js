@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import homeicon from "../assets/homeicon.png";
 import logo from "../assets/logo.png";
 import Footer from "./Footer";
+import { interactCall } from "../services/callTelemetryIntract";
 
 const Data = [
   {
@@ -128,6 +129,7 @@ function Home() {
                 key={item.id}
                 className="grid-item"
                 onClick={() => {
+                  interactCall("storySelect", "home","DT", "");
                   storySelect(item);
                 }}
               >
