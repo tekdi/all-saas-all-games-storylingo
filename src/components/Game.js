@@ -8,6 +8,8 @@ import homeicon from "../assets/homeicon.png";
 import logo from "../assets/logo.png";
 import VoiceAnalyser from "../utility/VoiceAnalyser";
 import SoundWave from "../utility/SoundWave";
+import { response } from "../services/telementryService";
+import { compareArrays } from "../utility/helper";
 
 // const Story =[
 //   "A man was walking nearby to a group of elephants that was halted by a small rope tied to their front leg.",
@@ -66,6 +68,7 @@ function Game() {
     checkVoice(voiceText, Story[storyLine]);
   }
 
+
   function replaceAll(string, search, replace) {
     return string.split(search).join(replace);
   }
@@ -81,16 +84,26 @@ function Game() {
     const studentTextArray = texttemp.split(" ");
     const teacherTextArray = tempteacherText.split(" ");
     let student_text_result = [];
+    let student_correct_words_result = [];
+    let student_incorrect_words_result = [];
     let originalwords = teacherTextArray.length;
     let studentswords = studentTextArray.length;
     let correct_words = 0;
     let result_per_words = 0;
+
+    let word_result_array = compareArrays(
+      teacherTextArray,
+      studentTextArray
+    );
+
     for (let i = 0; i < studentTextArray.length; i++) {
       if (teacherTextArray.includes(studentTextArray[i])) {
         correct_words++;
         student_text_result.push(studentTextArray[i]);
+        student_correct_words_result.push(studentTextArray[i]);
       } else {
         student_text_result.push(studentTextArray[i]);
+        student_incorrect_words_result.push(studentTextArray[i]);
       }
     }
     // setVoiceTextHighLight(student_text_result);
@@ -104,6 +117,36 @@ function Game() {
         Number((correct_words / studentswords) * 100)
       );
     }
+
+    let word_result = result_per_words == 100 ? "correct" : "incorrect";
+
+    const responseStartTime = new Date().getTime();
+    const responseEndTime = new Date().getTime();
+    const responseDuration = Math.round(
+      (responseEndTime - responseStartTime) / 1000
+    );
+
+    response(
+      {
+        // Required
+        target: teacherText, // Required. Target of the response
+        //"qid": "", // Required. Unique assessment/question id
+        type: "SPEAK", // Required. Type of response. CHOOSE, DRAG, SELECT, MATCH, INPUT, SPEAK, WRITE
+        values: [
+          { original_text: teacherText},
+          { response_text: voiceText},
+          { response_correct_words_array: student_correct_words_result },
+          {
+            response_incorrect_words_array: student_incorrect_words_result,
+          },
+          { response_word_array_result: word_result_array },
+          { response_word_result: word_result },
+          { accuracy_percentage: result_per_words },
+          { duration: responseDuration },
+        ],
+      },
+      "ET"
+    );
     if (storyLine % 2 === 0 || numberOfPlayers === "p1s") {
       let temp = player1Score + result_per_words;
       setPlayer1Score(temp);
