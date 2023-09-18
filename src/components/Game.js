@@ -66,42 +66,47 @@ function Game() {
     localStorage.setItem("contenttype", "Paragraph");
     localStorage.setItem("isfromresult", "learn");
     checkVoice(voiceText, Story[storyLine]);
-    generateResponseEvent(voiceText)
   }
 
 
-  function generateResponseEvent(voiceText){
-   
+  function replaceAll(string, search, replace) {
+    return string.split(search).join(replace);
+  }
+
+  function checkVoice(voiceText, teacherText) {
+    let tempteacherText = teacherText.toLowerCase();
+    tempteacherText = replaceAll(tempteacherText, ".", "");
+    tempteacherText = replaceAll(tempteacherText, "'", "");
+    tempteacherText = replaceAll(tempteacherText, ",", "");
+    tempteacherText = replaceAll(tempteacherText, "!", "");
+    tempteacherText = replaceAll(tempteacherText, "|", "");
     let texttemp = voiceText.toLowerCase();
     const studentTextArray = texttemp.split(" ");
-    let tempteacherText = localStorage.getItem("contentText")?.toLowerCase();
-
-    const teacherTextArray = tempteacherText?.split(" ");
-
+    const teacherTextArray = tempteacherText.split(" ");
+    let student_text_result = [];
     let student_correct_words_result = [];
     let student_incorrect_words_result = [];
-    let originalwords = teacherTextArray?.length;
-    let studentswords = studentTextArray?.length;
-    let wrong_words = 0;
+    let originalwords = teacherTextArray.length;
+    let studentswords = studentTextArray.length;
     let correct_words = 0;
     let result_per_words = 0;
-    let result_per_words1 = 0;
-    let occuracy_percentage = 0;
 
     let word_result_array = compareArrays(
       teacherTextArray,
       studentTextArray
     );
 
-    for (let i = 0; i < studentTextArray?.length; i++) {
-      if (teacherTextArray?.includes(studentTextArray[i])) {
+    for (let i = 0; i < studentTextArray.length; i++) {
+      if (teacherTextArray.includes(studentTextArray[i])) {
         correct_words++;
+        student_text_result.push(studentTextArray[i]);
         student_correct_words_result.push(studentTextArray[i]);
       } else {
-        wrong_words++;
+        student_text_result.push(studentTextArray[i]);
         student_incorrect_words_result.push(studentTextArray[i]);
       }
     }
+    // setVoiceTextHighLight(student_text_result);
     //calculation method
     if (originalwords >= studentswords) {
       result_per_words = Math.round(
@@ -124,11 +129,11 @@ function Game() {
     response(
       {
         // Required
-        target: localStorage.getItem("contentText"), // Required. Target of the response
+        target: teacherText, // Required. Target of the response
         //"qid": "", // Required. Unique assessment/question id
         type: "SPEAK", // Required. Type of response. CHOOSE, DRAG, SELECT, MATCH, INPUT, SPEAK, WRITE
         values: [
-          { original_text: localStorage.getItem("contentText") },
+          { original_text: teacherText},
           { response_text: voiceText},
           { response_correct_words_array: student_correct_words_result },
           {
@@ -142,46 +147,6 @@ function Game() {
       },
       "ET"
     );
-  }
-
-  function replaceAll(string, search, replace) {
-    return string.split(search).join(replace);
-  }
-
-  function checkVoice(voiceText, teacherText) {
-    let tempteacherText = teacherText.toLowerCase();
-    tempteacherText = replaceAll(tempteacherText, ".", "");
-    tempteacherText = replaceAll(tempteacherText, "'", "");
-    tempteacherText = replaceAll(tempteacherText, ",", "");
-    tempteacherText = replaceAll(tempteacherText, "!", "");
-    tempteacherText = replaceAll(tempteacherText, "|", "");
-    let texttemp = voiceText.toLowerCase();
-    const studentTextArray = texttemp.split(" ");
-    const teacherTextArray = tempteacherText.split(" ");
-    let student_text_result = [];
-    let originalwords = teacherTextArray.length;
-    let studentswords = studentTextArray.length;
-    let correct_words = 0;
-    let result_per_words = 0;
-    for (let i = 0; i < studentTextArray.length; i++) {
-      if (teacherTextArray.includes(studentTextArray[i])) {
-        correct_words++;
-        student_text_result.push(studentTextArray[i]);
-      } else {
-        student_text_result.push(studentTextArray[i]);
-      }
-    }
-    // setVoiceTextHighLight(student_text_result);
-    //calculation method
-    if (originalwords >= studentswords) {
-      result_per_words = Math.round(
-        Number((correct_words / originalwords) * 100)
-      );
-    } else {
-      result_per_words = Math.round(
-        Number((correct_words / studentswords) * 100)
-      );
-    }
     if (storyLine % 2 === 0 || numberOfPlayers === "p1s") {
       let temp = player1Score + result_per_words;
       setPlayer1Score(temp);
@@ -194,7 +159,6 @@ function Game() {
     }
     let temp = storyLine + 1;
     setStoryLine(temp);
-    localStorage.setItem("storyline",temp);
     let coinAudio = new Audio(coin);
     if (coinAudio !== null) {
       coinAudio.play();
