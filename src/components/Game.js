@@ -126,10 +126,12 @@ function Game() {
       (responseEndTime - responseStartTime) / 1000
     );
 
+
     response(
       {
         // Required
-        target: teacherText, // Required. Target of the response
+        // target: teacherText, // Required. Target of the response
+        target: process.env.REACT_APP_CAPTURE_AUDIO === 'true' ? `${localStorage.getItem('audioFileName')}` : '',
         //"qid": "", // Required. Unique assessment/question id
         type: "SPEAK", // Required. Type of response. CHOOSE, DRAG, SELECT, MATCH, INPUT, SPEAK, WRITE
         values: [
@@ -159,6 +161,7 @@ function Game() {
     }
     let temp = storyLine + 1;
     setStoryLine(temp);
+    localStorage.setItem("storySentenceId",storyLine)
     let coinAudio = new Audio(coin);
     if (coinAudio !== null) {
       coinAudio.play();
