@@ -4,6 +4,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.370.0",
     "@fingerprintjs/fingerprintjs": "^3.4.0",
     "@project-sunbird/client-services": "^5.1.2",
     "@project-sunbird/telemetry-sdk": "^0.0.29",
