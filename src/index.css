@@ -89,3 +89,29 @@ code {
   position: absolute;
   width: 97vw;
 }
+
+.no_Of_Player {
+  cursor: pointer;
+  margin-bottom: 30px;
+  padding: 15px 90px;
+  border-radius: 10px;
+  color: white;
+  font-family: fantasy;
+  background-color: grey;
+  font-size: 25px;
+  opacity: 0.9;
+}
+
+.no_Of_Player_Selected {
+  cursor: pointer;
+  margin-bottom: 30px;
+  padding: 15px 90px;
+  border-radius: 10px;
+  /* color: white; */
+  font-family: fantasy;
+  background: rgb(2,0,36);
+  background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(252,255,103,1) 0%, rgba(255,205,80,1) 100%);
+  font-weight: 500;
+  font-size: 25px;
+  opacity: 0.9;
+}

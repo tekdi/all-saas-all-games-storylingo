@@ -8,6 +8,7 @@ import logo from "../assets/logo.png";
 import newselection from "../assets/audio/selectplayer.mp3";
 import Footer from "./Footer";
 import { interactCall } from "../services/callTelemetryIntract";
+import jwt from 'jwt-decode'
 
 const Data = [
   { id: 1, avatar: "p1", selected: "" },
@@ -20,6 +21,24 @@ function Avatar() {
   const [turn, selectTurn] = useState(0);
   const [avatarData, setAvatar] = useState(Data);
   const [switchVal, setSwitch] = useState(false);
+
+  const [Player1,setPlayer1] = useState('');
+  const [Player2, setPlayer2]=useState('')
+
+  useEffect(()=>{
+
+    const token = localStorage.getItem('token');
+    const buddyToken  = localStorage.getItem('buddyToken');
+    if (!!token) {
+      const p1 = jwt(token);
+      setPlayer1(p1);
+    } 
+    if(!!buddyToken){
+      const p2 = jwt(buddyToken)
+      setPlayer2(p2);
+    }
+  },[])
+
   let numberOfPlayers = localStorage.getItem("players");
   console.log("number of players", numberOfPlayers);
   useEffect(() => {
@@ -38,7 +57,7 @@ function Avatar() {
     playerClicked.play();
     if (numberOfPlayers === "p1s") {
       avatarData.forEach((item, index) => (avatarData[index].selected = ""));
-      temp.selected = "pt1";
+      temp.selected = Player1.student_name === undefined?"Player 1":Player1.student_name;
       selectTurn(1);
       setSwitch(!switchVal);
       localStorage.setItem("p1", temp.avatar);
@@ -46,13 +65,13 @@ function Avatar() {
       return;
     }
     if (turn === 0) {
-      temp.selected = "pt1";
+      temp.selected = Player1.student_name === undefined?"Player 1":Player1.student_name;
       selectTurn(1);
       localStorage.setItem("p1", temp.avatar);
       setAvatar(avatarData);
     } else {
       if (temp.selected === "" && turn !== 2) {
-        temp.selected = "pt2";
+        temp.selected = Player2.student_name === undefined?"Player 2":Player2.student_name;
         selectTurn(2);
         setAvatar(avatarData);
         localStorage.setItem("p2", temp.avatar);
@@ -132,12 +151,11 @@ function Avatar() {
               </div>
               <div style={{ marginTop: "10px" }}>
                 {item.selected && (
-                  <img
-                    height="15px"
-                    width="auto"
-                    src={require(`../assets/${item.selected}.png`)}
-                    alt={item.selected}
-                  />
+                  <>
+                  <p style={{color:'yellow'}}>
+                  {item.selected}
+                  </p>
+                  </>
                 )}
               </div>
             </div>

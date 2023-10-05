@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import p1win from "../assets/p1win.png";
 import p2win from "../assets/p2win.png";
 import draw from "../assets/draw.png";
@@ -10,6 +10,7 @@ import over from "../assets/over.png";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
+import jwt from 'jwt-decode'
 
 const players = {
   p1: "ps1",
@@ -31,6 +32,60 @@ function Result() {
   let score1 = localStorage.getItem("score1");
   let score2 = localStorage.getItem("score2");
   let numberOfPlayers = localStorage.getItem('players');
+
+
+  useEffect(()=>{
+    if(!!localStorage.getItem('buddyToken')){
+      send(localStorage.getItem("score1"),localStorage.getItem("score2"))
+    }
+    else{
+      send(localStorage.getItem("score1"))
+    }
+  },[])
+
+  const send = (score1,score2) => {
+    if(!!localStorage.getItem('buddyToken')){
+      const Player1 = (score1 / 100).toPrecision(2);
+      const Player2 = (score2 / 100).toPrecision(2);
+      if (window && window.parent) {
+        window.parent.postMessage({
+          score1: Player1,
+          score2: Player2,
+          message: 'storylingo-app-score',
+        });
+      }
+    }
+      else{
+      const Player1 = (score1 / 100).toPrecision(2);
+      if (window && window.parent) {
+        window.parent.postMessage({
+          score1: Player1,
+          message: 'storylingo-app-score',
+        });
+      }
+      }
+  };
+
+  const [Player1,setPlayer1] = useState('');
+  const [Player2, setPlayer2]=useState('')
+  const [isBuddyLogin,setIsBuddyLogin] = useState(false)
+
+  useEffect(()=>{
+
+    const token = localStorage.getItem('token');
+    const buddyToken  = localStorage.getItem('buddyToken');
+    setIsBuddyLogin(!!buddyToken)
+    if (!!token) {
+      const p1 = jwt(token);
+      setPlayer1(p1);
+    } 
+    if(!!buddyToken){
+      const p2 = jwt(buddyToken)
+      setPlayer2(p2);
+    }
+  },[])
+
+
   function snow() {
     let animationDelay = "0s";
     let fontSize = "100px";
@@ -103,12 +158,15 @@ function Result() {
             />
           </div>
           <div className="title">
-            <img
+            {/* <img
               height="16px"
               width="auto"
               src={require(`../assets/pt1.png`)}
               alt={"pt1"}
-            />
+            /> */}
+             <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'16px', fontWeight:'600'}}>
+                {Player1.student_name === undefined?"PLAYER 1":Player1.student_name}
+              </p>
           </div>
         </div>
        {numberOfPlayers !== 'p1s' &&
@@ -123,12 +181,15 @@ function Result() {
             />
           </div>
           <div className="title">
-            <img
+            {/* <img
               height="16px"
               width="auto"
               src={require(`../assets/pt2.png`)}
               alt={"pt1"}
-            />
+            /> */}
+               <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'16px', fontWeight:'600'}}>
+                {Player2.student_name === undefined?"PLAYER 2":Player2.student_name}
+              </p>
           </div>
         </div>
        }

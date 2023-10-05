@@ -1,10 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import mode from "../assets/mode.png";
-import p1u from "../assets/p1u.png";
-import p2u from "../assets/p2u.png";
-import p1s from "../assets/p1s.png";
-import p2s from "../assets/p2s.png";
 import next from "../assets/next.png";
 import homeicon from "../assets/homeicon.png";
 import logo from "../assets/logo.png";
@@ -12,9 +8,30 @@ import newselection from "../assets/audio/selectplayer.mp3";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import { interactCall } from "../services/callTelemetryIntract";
+import jwt from "jwt-decode";
 
 function Player() {
   const [current, setCurrent] = useState("");
+  
+  const [Player1,setPlayer1] = useState('');
+  const [Player2, setPlayer2]=useState('')
+  const [isBuddyLogin,setIsBuddyLogin] = useState(false)
+
+  useEffect(()=>{
+
+    const token = localStorage.getItem('token');
+    const buddyToken  = localStorage.getItem('buddyToken');
+    setIsBuddyLogin(!!buddyToken)
+    if (!!token) {
+      const p1 = jwt(token);
+      setPlayer1(p1);
+    } 
+    if(!!buddyToken){
+      const p2 = jwt(buddyToken)
+      setPlayer2(p2);
+    }
+  },[])
+
   function setPlayers(item) {
     setCurrent(item);
     localStorage.setItem("players", item);
@@ -53,30 +70,22 @@ function Player() {
         />
       </div>
       <div className="player-container">
-        <img
-          src={current === "p1s" ? p1s : p1u}
-          height="55px"
-          width="255px"
-          alt="player1"
-          style={{ cursor: "pointer", marginBottom: "30px" }}
+        <>
+          <p  
           onClick={() => {
             interactCall("setPlayer", "player", "DT", "");
             setPlayers("p1s");
-            localStorage.setItem("score1", 0);
-            localStorage.setItem("score2", 0);
-          }}
-        />
-        <img
-          src={current === "p2s" ? p2s : p2u}
-          height="55px"
-          width="255px"
-          alt="player2"
-          style={{ cursor: "pointer" }}
-          onClick={() => {
+          }}className={current === "p1s"?"no_Of_Player_Selected":"no_Of_Player"}>{ Player1===''? "1 Player":  Player1.student_name}</p>
+          </>
+       {isBuddyLogin? <>
+            <p    
+            onClick={() => {
             interactCall("setPlayer", "player", "DT", "");
             setPlayers("p2s");
-          }}
-        />
+          }} className={current === "p2s"?"no_Of_Player_Selected":"no_Of_Player"}>{Player2===''? "2 Player": Player2.student_name}</p>
+          </>
+        :""}
+
       </div>
       <div className="footerNext">
         <Link to="/avatar">
@@ -86,12 +95,14 @@ function Player() {
             alt="player2"
             style={
               current
-                ? { cursor: "pointer" }
+              ? { cursor: "pointer" }
                 : { opacity: 0.3, pointerEvents: "none" }
             }
             onClick={() => {
               interactCall("setPlayers", "player",  "DT", "");
               setPlayers(current);
+              localStorage.setItem("score1", 0);
+              localStorage.setItem("score2", 0);
             }}
           />
         </Link>

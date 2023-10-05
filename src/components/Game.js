@@ -10,6 +10,7 @@ import VoiceAnalyser from "../utility/VoiceAnalyser";
 import SoundWave from "../utility/SoundWave";
 import { response } from "../services/telementryService";
 import { compareArrays } from "../utility/helper";
+import jwt from 'jwt-decode'
 
 // const Story =[
 //   "A man was walking nearby to a group of elephants that was halted by a small rope tied to their front leg.",
@@ -37,6 +38,25 @@ function Game() {
   const [currentIndex,setCurrentIndex] = useState(0);
   // const [newtextresult, setnewtextresult] = useState('');
   // const [voiceTextHighlight, setVoiceTextHighLight] = useState('');
+
+  const [Player1,setPlayer1] = useState('');
+  const [Player2, setPlayer2]=useState('')
+
+  useEffect(()=>{
+
+    const token = localStorage.getItem('token');
+    const buddyToken  = localStorage.getItem('buddyToken');
+    if (!!token) {
+      const p1 = jwt(token);
+      setPlayer1(p1);
+    } 
+    if(!!buddyToken){
+      const p2 = jwt(buddyToken)
+      setPlayer2(p2);
+    }
+  },[])
+
+
   const initiateValues = async () => {
     const currIndex = await localStorage.getItem("index");
     setCurrentIndex(currIndex);
@@ -269,12 +289,15 @@ function Game() {
               />
             </div>
             <div>
-              <img
+              {/* <img
                 height="13px"
                 style={{ marginTop: "5px" }}
                 src={require(`../assets/pt1.png`)}
                 alt="pt1"
-              />
+              /> */}
+               <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'13px', fontWeight:'600'}}>
+                {Player1.student_name === undefined?"PLAYER 1":Player1.student_name}
+              </p>
             </div>
             <div style={{ color: "yellow", fontSize: "12px", fontWeight: 600 }}>
               {player1Score}
@@ -340,12 +363,15 @@ function Game() {
               />
             </div>
             <div>
-              <img
+              {/* <img
                 height="14px"
                 style={{ marginTop: "5px" }}
                 src={require(`../assets/pt2.png`)}
                 alt="pt2"
-              />
+                /> */}
+                <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'13px', fontWeight:'600'}}>
+                {Player2.student_name === undefined?"PLAYER 2":Player2.student_name}
+                </p>
             </div>
             <div
               style={{
