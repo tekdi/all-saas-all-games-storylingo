@@ -158,12 +158,6 @@ function Result() {
             />
           </div>
           <div className="title">
-            {/* <img
-              height="16px"
-              width="auto"
-              src={require(`../assets/pt1.png`)}
-              alt={"pt1"}
-            /> */}
              <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'16px', fontWeight:'600'}}>
                 {Player1.student_name === undefined?"PLAYER 1":Player1.student_name}
               </p>
@@ -181,12 +175,6 @@ function Result() {
             />
           </div>
           <div className="title">
-            {/* <img
-              height="16px"
-              width="auto"
-              src={require(`../assets/pt2.png`)}
-              alt={"pt1"}
-            /> */}
                <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'16px', fontWeight:'600'}}>
                 {Player2.student_name === undefined?"PLAYER 2":Player2.student_name}
               </p>

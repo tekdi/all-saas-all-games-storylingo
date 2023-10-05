@@ -289,12 +289,6 @@ function Game() {
               />
             </div>
             <div>
-              {/* <img
-                height="13px"
-                style={{ marginTop: "5px" }}
-                src={require(`../assets/pt1.png`)}
-                alt="pt1"
-              /> */}
                <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'13px', fontWeight:'600'}}>
                 {Player1.student_name === undefined?"PLAYER 1":Player1.student_name}
               </p>
@@ -363,12 +357,6 @@ function Game() {
               />
             </div>
             <div>
-              {/* <img
-                height="14px"
-                style={{ marginTop: "5px" }}
-                src={require(`../assets/pt2.png`)}
-                alt="pt2"
-                /> */}
                 <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'13px', fontWeight:'600'}}>
                 {Player2.student_name === undefined?"PLAYER 2":Player2.student_name}
                 </p>
