@@ -9,28 +9,14 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import { interactCall } from "../services/callTelemetryIntract";
 import jwt from "jwt-decode";
+import { usePlayers } from "../utility/helperHook";
 
 function Player() {
+  const { Player1, Player2 } = usePlayers(); 
   const [current, setCurrent] = useState("");
-  
-  const [Player1,setPlayer1] = useState('');
-  const [Player2, setPlayer2]=useState('')
-  const [isBuddyLogin,setIsBuddyLogin] = useState(false)
+  const [isBuddyLogin,setIsBuddyLogin] = useState(!!localStorage.getItem('buddyToken'))
 
-  useEffect(()=>{
 
-    const token = localStorage.getItem('token');
-    const buddyToken  = localStorage.getItem('buddyToken');
-    setIsBuddyLogin(!!buddyToken)
-    if (!!token) {
-      const p1 = jwt(token);
-      setPlayer1(p1);
-    } 
-    if(!!buddyToken){
-      const p2 = jwt(buddyToken)
-      setPlayer2(p2);
-    }
-  },[])
 
   function setPlayers(item) {
     setCurrent(item);

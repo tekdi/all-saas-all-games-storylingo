@@ -10,7 +10,7 @@ import VoiceAnalyser from "../utility/VoiceAnalyser";
 import SoundWave from "../utility/SoundWave";
 import { response } from "../services/telementryService";
 import { compareArrays } from "../utility/helper";
-import jwt from 'jwt-decode'
+import { usePlayers } from "../utility/helperHook";
 
 // const Story =[
 //   "A man was walking nearby to a group of elephants that was halted by a small rope tied to their front leg.",
@@ -32,6 +32,7 @@ import jwt from 'jwt-decode'
 // ];
 
 function Game() {
+  const { Player1, Player2 } = usePlayers(); 
   const [recordedAudio, setRecordedAudio] = useState("");
   const [Story, setStory] = useState([]);
   const [voiceText, setVoiceText] = useState("");
@@ -39,22 +40,6 @@ function Game() {
   // const [newtextresult, setnewtextresult] = useState('');
   // const [voiceTextHighlight, setVoiceTextHighLight] = useState('');
 
-  const [Player1,setPlayer1] = useState('');
-  const [Player2, setPlayer2]=useState('')
-
-  useEffect(()=>{
-
-    const token = localStorage.getItem('token');
-    const buddyToken  = localStorage.getItem('buddyToken');
-    if (!!token) {
-      const p1 = jwt(token);
-      setPlayer1(p1);
-    } 
-    if(!!buddyToken){
-      const p2 = jwt(buddyToken)
-      setPlayer2(p2);
-    }
-  },[])
 
 
   const initiateValues = async () => {

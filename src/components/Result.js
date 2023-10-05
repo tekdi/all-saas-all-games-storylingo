@@ -10,7 +10,7 @@ import over from "../assets/over.png";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-import jwt from 'jwt-decode'
+import { usePlayers } from "../utility/helperHook";
 
 const players = {
   p1: "ps1",
@@ -27,6 +27,7 @@ const Snowflake = (props) => {
 };
 
 function Result() {
+  const { Player1, Player2 } = usePlayers(); 
   let player1 = localStorage.getItem("p1");
   let player2 = localStorage.getItem("p2");
   let score1 = localStorage.getItem("score1");
@@ -65,25 +66,6 @@ function Result() {
       }
       }
   };
-
-  const [Player1,setPlayer1] = useState('');
-  const [Player2, setPlayer2]=useState('')
-  const [isBuddyLogin,setIsBuddyLogin] = useState(false)
-
-  useEffect(()=>{
-
-    const token = localStorage.getItem('token');
-    const buddyToken  = localStorage.getItem('buddyToken');
-    setIsBuddyLogin(!!buddyToken)
-    if (!!token) {
-      const p1 = jwt(token);
-      setPlayer1(p1);
-    } 
-    if(!!buddyToken){
-      const p2 = jwt(buddyToken)
-      setPlayer2(p2);
-    }
-  },[])
 
 
   function snow() {

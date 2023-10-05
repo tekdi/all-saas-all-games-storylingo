@@ -8,7 +8,7 @@ import logo from "../assets/logo.png";
 import newselection from "../assets/audio/selectplayer.mp3";
 import Footer from "./Footer";
 import { interactCall } from "../services/callTelemetryIntract";
-import jwt from 'jwt-decode'
+import { usePlayers } from "../utility/helperHook";
 
 const Data = [
   { id: 1, avatar: "p1", selected: "" },
@@ -18,27 +18,10 @@ const Data = [
 ];
 
 function Avatar() {
+  const { Player1, Player2 } = usePlayers(); 
   const [turn, selectTurn] = useState(0);
   const [avatarData, setAvatar] = useState(Data);
   const [switchVal, setSwitch] = useState(false);
-
-  const [Player1,setPlayer1] = useState('');
-  const [Player2, setPlayer2]=useState('')
-
-  useEffect(()=>{
-
-    const token = localStorage.getItem('token');
-    const buddyToken  = localStorage.getItem('buddyToken');
-    if (!!token) {
-      const p1 = jwt(token);
-      setPlayer1(p1);
-    } 
-    if(!!buddyToken){
-      const p2 = jwt(buddyToken)
-      setPlayer2(p2);
-    }
-  },[])
-
   let numberOfPlayers = localStorage.getItem("players");
   console.log("number of players", numberOfPlayers);
   useEffect(() => {
