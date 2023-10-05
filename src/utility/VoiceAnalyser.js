@@ -205,7 +205,7 @@ function VoiceAnalyser(props) {
         if (process.env.REACT_APP_CAPTURE_AUDIO === 'true') {
           let getContentId = parseInt(localStorage.getItem('index'));
           let storyline = parseInt(localStorage.getItem('storySentenceId'));
-          var audioFileName = `${process.env.REACT_APP_CHANNEL}/${localStorage.getItem('contentSessionId')===null? 
+          var audioFileName = `${process.env.REACT_APP_CHANNEL}/${localStorage.getItem('contentSessionId')===null?
           localStorage.getItem('StorylingoContentSessionId'):
           localStorage.getItem('contentSessionId')}-${Date.now()}-${getContentId}-${storyline}.wav`;
           localStorage.setItem('audioFileName',audioFileName)
@@ -215,17 +215,16 @@ function VoiceAnalyser(props) {
            Body: Uint8Array.from(window.atob(base64Data), (c) => c.charCodeAt(0)),
            ContentType: 'audio/wav'
          });
-         
+
          try {
-           const response = S3Client.send(command);
-           console.log(response);
+           const response = await S3Client.send(command);
          } catch (err) {
            console.error(err);
          }
-    
+
        }
-    
-        
+
+
         setLoader(false);
       });
   };
