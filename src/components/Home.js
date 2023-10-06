@@ -28,7 +28,8 @@ const Data = [
       "Likewise, many people are not trying to work towards success in their life just because they failed once before.",
     
       "So keep on trying and don’t get tied up with some false beliefs of failure."
-    ]}
+    ]},
+    lang:'en'
      
   },
   {
@@ -44,32 +45,97 @@ const Data = [
         "Is there sugar in a mango, Yes there is sugar in ripe mango",
         "Is there acid in curd, Yes there is some acid in curd"
       ]
-    }
+    },
+    lang:'en'
       
   },
   {
     id: 3,
-    avatar: "singing",
-    title: "SINGING IN THE RAIN",
-    story:
-      "It was a rainy day, but Sarah did not let the weather dampen her spirits. She loved the rain and the sound it made as it pattered against the pavement.",
+    avatar: "satya",
+    title: "SATYA, WATCH OUT!",
+    story: {val:[
+      "SATYA, WATCH OUT!",
+      "Satya can’t stay still. He runs and jumps and spins and rolls and falls!",
+      "'Sit quietly for a minute!' says Appa. 'If you get hurt, don’t come crying to me, ' says Akka.",
+      "'Don’t you dare break anything!' says Thaatha. 'You're disturbing the class,' says his teacher.",
+      "But what can Satya do if his hands and legs are always dancing?",
+      "Today is Sunday. It’s Satya’s favourite day of the week — the day he goes to the farm where Amma works.",
+      "It’s a long walk to the farm, through secret up-and-down paths, open fields, thick forests and gently flowing streams.",
+      "Satya hops like a hare and sprints like a deer.'The mud is squishy. Be careful!' says Amma.",
+      "He crawls like a centipede and slithers like a snake. 'Look out for thorns!' says Amma.",
+      "He swings like a spider and leaps like a langur. 'Wheeeee!' 'Use the strong branches, my little monkey,' says Amma.",
+      "He paddles like a duck and swims like a frog. 'Stay in the shallows, okay?' says Amma.",
+      "He climbs like a lizard and jumps like a goat. 'Don’t slip!' says Amma.",
+      "Satya flaps his arms like wings and tries to fly away. He imagines himself soaring and gliding like a vulture.",
+      "Late in the evening, when the sun sets and crickets begin to hum, it’s time to go home. Tired Satya climbs on to his mother's back. They return through the up-and-down paths, fields, forests and streams.",
+      "At home, Appa, Akka and Thaatha take one look at bruised and muddy Satya, and burst into laughter.",
+      "Thaatha bathes him. Appa cooks him dinner. Akka tells him his favourite story as he falls asleep.",
+      "In his dreams, Satya runs and jumps and spins and rolls",
+      "and flies away!",
+      "How do they move? Oh, the way Satya moves! Did you know that animals, birds and insects also move in many different ways and for different reasons? Like us, they move mainly to find delicious food, a cozy home and a warm family. Some of them also move to escape from being caught and eaten by other animals. Find out how some of these creatures move!",
+      "Dolphins are famous for how they leap out of water. Can you leap? Cheetahs are the fastest land animals. They can run really fast and sprint too, especially when they hunt. Can you sprint?",
+      "Crabs can walk sideways. Can you walk sideways? Grasshoppers can jump really high, especially when they want to escape from being eaten. Can you jump really high?Grasshoppers can jump really high, especially when they want to escape from being eaten. Can you jump really high? Snails crawl. Slowly. Very, very slowly. Can you crawl slowly?"
+    ]},
+    lang:'en'
   },
   {
     id: 4,
-    avatar: "found",
-    title: "LOST AND FOUND",
-    story:
-      "Sophie was a little girl who loved to explore. She lived in a small town with her parents, and she would often wander off into the woods behind their house, looking for adventure.",
+    avatar: "cat",
+    title: "It's All the Cat's Fault!",
+    story:{
+      val:[
+        "Why haven’t you done your homework? Miss, it’s all the cat’s fault.",
+        "If she had not got stuck on the tree, I would not have taken the ladder to climb it.",
+        "If I had not taken the ladder to climb it, I would not have needed to fix it. If I had not needed to fix it, I wouldn’t have woken up the baby.",
+        "If I had not woken up the baby, my mother would not have rushed out of the kitchen. If my mother had not rushed out of the kitchen, the monkey would not have got in.",
+        "If the monkey had not got in, he would not have eaten up all the food. If he had not eaten up all the food, my father would not have bought rotis and chicken curry at the tea-shop.",
+        "If my father had not bought rotis and chicken curry at the tea-shop, the dog would not have followed him home.",
+        "If the dog had not followed him home, he would not have eaten my homework.",
+        "So, you’re saying the dog ate your homework?",
+        "Yes, Miss, it’s all the cat’s fault!",        
+      ]
+    },
+    lang:'en'
   },
   {
     id: 5,
-    avatar: "satya",
-    title: "SATYA, WATCH OUT!",
+    avatar: "found",
+    title: "TAMIL STORY 1",
+    story:
+    {val:[
+    "Sophie was a little girl who loved to explore",
+    "She lived in a small town with her parents", 
+    "and she would often wander off into the woods behind their house, looking for adventure.",
+    ]},
+    lang:'ta'
+  },
+  {
+    id: 6,
+    avatar: "found",
+    title: "TAMIL STORY 2",
+    story:{val:[
+      "Sophie was a little girl who loved to explore",
+      "She lived in a small town with her parents", 
+      "and she would often wander off into the woods behind their house, looking for adventure.",
+      ]},
+      lang:'ta'
+  },
+  {
+    id: 7,
+    avatar: "found",
+    title: "LOST AND FOUND",
+    story:
+    "Sophie was a little girl who loved to explore. She lived in a small town with her parents, and she would often wander off into the woods behind their house, looking for adventure.",
+  },
+  {
+    id: 8,
+    title: "SINGING IN THE RAIN",
+    avatar: "singing",
     story:
       "Satya was a young boy who loved to explore the forest near his village. He often went out alone, taking in the sights and sounds of the natural world around him.",
   },
   {
-    id: 6,
+    id: 9,
     avatar: "helping",
     title: "A HELPING HAND",
     story:
@@ -81,6 +147,10 @@ function Home() {
   function storySelect(item) {
     localStorage.setItem("story", JSON.stringify(item.story));
     localStorage.setItem("index", item.id);
+  }
+
+  const handleLanguage=(lang)=>{
+    localStorage.setItem('apphomelang',lang);
   }
 
   return (
@@ -115,7 +185,7 @@ function Home() {
             <Link
               to="/player"
               style={
-                index < 2
+                index < 4
                   ? { textDecoration: "none" }
                   : {
                     textDecoration: "none",
@@ -131,6 +201,7 @@ function Home() {
                 onClick={() => {
                   interactCall("storySelect", "home","DT", "");
                   storySelect(item);
+                  handleLanguage(item.lang)
                 }}
               >
                 <div>
