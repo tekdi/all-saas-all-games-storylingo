@@ -13,6 +13,37 @@ import s3 from "../assets/audio/S3.m4a";
 import s4 from "../assets/audio/S4.m4a";
 import s5 from "../assets/audio/S5.m4a";
 import s6 from "../assets/audio/S6.m4a";
+import Satya1 from '../assets/audio/Satya1.m4a'
+import Satya2 from '../assets/audio/Satya2.m4a'
+import Satya3 from '../assets/audio/Satya3.m4a'
+import Satya4 from '../assets/audio/Satya4.m4a'
+import Satya5 from '../assets/audio/Satya5.m4a'
+import Satya6 from '../assets/audio/Satya6.m4a'
+import Satya7 from '../assets/audio/Satya7.m4a'
+import Satya8 from '../assets/audio/Satya8.m4a'
+import Satya9 from '../assets/audio/Satya9.m4a'
+import Satya10 from '../assets/audio/Satya10.m4a'
+import Satya11 from '../assets/audio/Satya11.m4a'
+import Satya12 from '../assets/audio/Satya12.m4a'
+import Satya13 from '../assets/audio/Satya13.m4a'
+import Satya14 from '../assets/audio/Satya14.m4a'
+import Satya15 from '../assets/audio/Satya15.m4a'
+import Satya16 from '../assets/audio/Satya16.m4a'
+import Satya17 from '../assets/audio/Satya17.m4a'
+import Satya18 from '../assets/audio/Satya18.m4a'
+import Satya19 from '../assets/audio/Satya19.m4a'
+import Satya20 from '../assets/audio/Satya20.m4a'
+import Satya21 from '../assets/audio/Satya21.m4a'
+import Cats_fault1 from '../assets/audio/Cat’s_fault1.m4a'
+import Cats_fault2 from '../assets/audio/Cat’s_fault2.m4a'
+import Cats_fault3 from '../assets/audio/Cat’s_fault3.m4a'
+import Cats_fault4 from '../assets/audio/Cat’s_fault4.m4a'
+import Cats_fault5 from '../assets/audio/Cat’s_fault5.m4a'
+import Cats_fault6 from '../assets/audio/Cat’s_fault6.m4a'
+import Cats_fault7 from '../assets/audio/Cat’s_fault7.m4a'
+import Cats_fault8 from '../assets/audio/Cat’s_fault8.m4a'
+import Cats_fault9 from '../assets/audio/Cat’s_fault9.m4a'
+
 import AudioCompare from "./AudioCompare";
 import Loader from "./Loader";
 import { interactCall } from "../services/callTelemetryIntract";
@@ -44,6 +75,40 @@ const AudioPath = {
     4: s5,
     5: s6,
   },
+  3: {
+    0:Satya1,
+    1: Satya2,
+    2: Satya3,
+    3: Satya4,
+    4: Satya5,
+    5: Satya6,
+    6: Satya7,
+    7: Satya8,
+    8: Satya9,
+    9: Satya10,
+    10: Satya11,
+    11: Satya12,
+    12: Satya13,
+    13: Satya14,
+    14: Satya15,
+    15: Satya16,
+    16: Satya17,
+    17: Satya18,
+    18: Satya19,
+    19: Satya20,
+    20: Satya21,
+  },
+  4: {
+    0: Cats_fault1,
+    1: Cats_fault2,
+    2: Cats_fault3,
+    3: Cats_fault4,
+    4: Cats_fault5,
+    5: Cats_fault6,
+    6: Cats_fault7,
+    7: Cats_fault8,
+    8: Cats_fault9,
+  },
 };
 const currentIndex = localStorage.getItem("index");
 console.log("get current index", currentIndex);
@@ -64,31 +129,39 @@ function VoiceAnalyser(props) {
 
   const playAudio = (val) => {
     interactCall("playAudio", "", "DT", "play");
+    console.log( AudioPath,currentIndex,props.storyLine);
     set_temp_audio(new Audio(AudioPath[currentIndex][props.storyLine]));
     setPauseAudio(val);
   };
 
+  const [lang_code, set_lang_code] = useState(
+    localStorage.getItem('apphomelang')
+      ? localStorage.getItem('apphomelang')
+      : 'en'
+  );
+
   const DEFAULT_ASR_LANGUAGE_CODE = "ai4bharat/whisper-medium-en--gpu--t4";
-  // const HINDI_ASR_LANGUAGE_CODE = 'ai4bharat/conformer-hi-gpu--t4';
-  // const TAMIL_ASR_LANGUAGE_CODE = 'ai4bharat/conformer-multilingual-dravidian-gpu--t4';
+  const HINDI_ASR_LANGUAGE_CODE = 'ai4bharat/conformer-hi-gpu--t4';
+  const TAMIL_ASR_LANGUAGE_CODE = 'ai4bharat/conformer-multilingual-dravidian-gpu--t4';
 
   const [asr_language_code, set_asr_language_code] = useState(
     DEFAULT_ASR_LANGUAGE_CODE
   );
 
-  // useEffect(() => {
-  // switch (lang_code) {
-  // case 'hi':
-  // 	set_asr_language_code(HINDI_ASR_LANGUAGE_CODE);
-  // 	break;
-  //   case 'ta':
-  // 	set_asr_language_code(TAMIL_ASR_LANGUAGE_CODE);
-  // 	break;
-  // default:
-  // 	set_asr_language_code(DEFAULT_ASR_LANGUAGE_CODE);
-  // 	break;
-  // }
-  // }, []);
+
+  useEffect(() => {
+  switch (lang_code) {
+  case 'hi':
+  	set_asr_language_code(HINDI_ASR_LANGUAGE_CODE);
+  	break;
+    case 'ta':
+  	set_asr_language_code(TAMIL_ASR_LANGUAGE_CODE);
+  	break;
+  default:
+  	set_asr_language_code(DEFAULT_ASR_LANGUAGE_CODE);
+  	break;
+  }
+  }, []);
 
   useEffect(() => {
     console.log("check temp audio", temp_audio && temp_audio.play());
@@ -150,7 +223,7 @@ function VoiceAnalyser(props) {
 
   useEffect(() => {
     if (recordedAudioBase64 !== "") {
-      fetchASROutput("en", recordedAudioBase64);
+      fetchASROutput(lang_code, recordedAudioBase64);
     }
   }, [recordedAudioBase64]);
   useEffect(() => {
@@ -163,6 +236,9 @@ function VoiceAnalyser(props) {
     const asr_api_key = process.env.REACT_APP_ASR_API_KEY;
     const URL = process.env.REACT_APP_URL;
     let samplingrate = 30000;
+    if (lang_code === 'ta') {
+      samplingrate = 16000;
+    }
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", asr_api_key);
