@@ -49,6 +49,11 @@ import Loader from "./Loader";
 import { interactCall } from "../services/callTelemetryIntract";
 import { response } from "../services/telementryService";
 import { compareArrays } from "./helper";
+
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import S3Client from '../config/config';
+
+
 /* eslint-disable */
 
 const AudioPath = {
@@ -227,8 +232,7 @@ function VoiceAnalyser(props) {
     props.setRecordedAudio(recordedAudio);
   }, [ai4bharat]);
 
-  const fetchASROutput = (sourceLanguage, base64Data) => {
-    
+  const fetchASROutput = async (sourceLanguage, base64Data) => {
     const asr_api_key = process.env.REACT_APP_ASR_API_KEY;
     const URL = process.env.REACT_APP_URL;
     let samplingrate = 30000;
@@ -266,13 +270,37 @@ function VoiceAnalyser(props) {
     const apiURL = `${URL}/services/inference/asr?serviceId=${asr_language_code}`;
     fetch(apiURL, requestOptions)
       .then((response) => response.text())
-      .then((result) => {
+      .then(async (result) => {
         var apiResponse = JSON.parse(result);
         setAi4bharat(
           apiResponse["output"][0]["source"] != ""
             ? apiResponse["output"][0]["source"]
             : "-"
         );
+
+        if (process.env.REACT_APP_CAPTURE_AUDIO === 'true') {
+          let getContentId = parseInt(localStorage.getItem('index'));
+          let storyline = parseInt(localStorage.getItem('storySentenceId'));
+          var audioFileName = `${process.env.REACT_APP_CHANNEL}/${localStorage.getItem('contentSessionId')===null?
+          localStorage.getItem('StorylingoContentSessionId'):
+          localStorage.getItem('contentSessionId')}-${Date.now()}-${getContentId}-${storyline}.wav`;
+          localStorage.setItem('audioFileName',audioFileName)
+           const command = new PutObjectCommand({
+           Bucket: process.env.REACT_APP_AWS_s3_BUCKET_NAME,
+           Key: audioFileName,
+           Body: Uint8Array.from(window.atob(base64Data), (c) => c.charCodeAt(0)),
+           ContentType: 'audio/wav'
+         });
+
+         try {
+           const response = await S3Client.send(command);
+         } catch (err) {
+           console.error(err);
+         }
+
+       }
+
+
         setLoader(false);
       });
   };

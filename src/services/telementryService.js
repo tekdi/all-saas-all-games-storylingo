@@ -23,6 +23,7 @@ if (localStorage.getItem("contentSessionId") !== null) {
   contentSessionId = localStorage.getItem("contentSessionId");
 } else {
   contentSessionId = uniqueId();
+  localStorage.setItem('StorylingoContentSessionId', contentSessionId);
 }
 
 export const initialize = ({ context, config, metadata }) => {
