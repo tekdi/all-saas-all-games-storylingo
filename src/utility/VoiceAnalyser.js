@@ -72,6 +72,22 @@ import Letter13 from "../assets/audio/Letter13.m4a";
 import Letter14 from "../assets/audio/Letter14.m4a";
 import Letter15 from "../assets/audio/Letter15.m4a";
 import Letter16 from "../assets/audio/Letter16.m4a";
+import Azhaguthaan1 from "../assets/audio/Azhaguthaan1.m4a";
+import Azhaguthaan2 from "../assets/audio/Azhaguthaan2.m4a";
+import Azhaguthaan3 from "../assets/audio/Azhaguthaan3.m4a";
+import Azhaguthaan4 from "../assets/audio/Azhaguthaan4.m4a";
+import Azhaguthaan5 from "../assets/audio/Azhaguthaan5.m4a";
+import Azhaguthaan6 from "../assets/audio/Azhaguthaan6.m4a";
+import Azhaguthaan7 from "../assets/audio/Azhaguthaan7.m4a";
+import Azhaguthaan8 from "../assets/audio/Azhaguthaan8.m4a";
+import Azhaguthaan9 from "../assets/audio/Azhaguthaan9.m4a";
+import Azhaguthaan10 from "../assets/audio/Azhaguthaan10.m4a";
+import Azhaguthaan11 from "../assets/audio/Azhaguthaan11.m4a";
+import Azhaguthaan12 from "../assets/audio/Azhaguthaan12.m4a";
+import Azhaguthaan13 from "../assets/audio/Azhaguthaan13.m4a";
+import Azhaguthaan14 from "../assets/audio/Azhaguthaan14.m4a";
+import Azhaguthaan15 from "../assets/audio/Azhaguthaan15.m4a";
+import Azhaguthaan16 from "../assets/audio/Azhaguthaan16.m4a";
 
 import AudioCompare from "./AudioCompare";
 import Loader from "./Loader";
@@ -170,15 +186,22 @@ const AudioPath = {
     15: Letter16,
   },
   6: {
-    0: Cats_fault1,
-    1: Cats_fault2,
-    2: Cats_fault3,
-    3: Cats_fault4,
-    4: Cats_fault5,
-    5: Cats_fault6,
-    6: Cats_fault7,
-    7: Cats_fault8,
-    8: Cats_fault9,
+    0: Azhaguthaan1,
+    1: Azhaguthaan2,
+    2: Azhaguthaan3,
+    3: Azhaguthaan4,
+    4: Azhaguthaan5,
+    5: Azhaguthaan6,
+    6: Azhaguthaan7,
+    7: Azhaguthaan8,
+    8: Azhaguthaan9,
+    9:Azhaguthaan10,
+    10:Azhaguthaan11,
+    11:Azhaguthaan12,
+    13:Azhaguthaan13,
+    14:Azhaguthaan14,
+    15:Azhaguthaan15,
+    16:Azhaguthaan16,
   },
   
 };
