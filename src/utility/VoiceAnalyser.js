@@ -88,7 +88,6 @@ import Azhaguthaan13 from "../assets/audio/Azhaguthaan13.m4a";
 import Azhaguthaan14 from "../assets/audio/Azhaguthaan14.m4a";
 import Azhaguthaan15 from "../assets/audio/Azhaguthaan15.m4a";
 import Azhaguthaan16 from "../assets/audio/Azhaguthaan16.m4a";
-
 import AudioCompare from "./AudioCompare";
 import Loader from "./Loader";
 import { interactCall } from "../services/callTelemetryIntract";
@@ -206,7 +205,7 @@ const AudioPath = {
   
 };
 const currentIndex = localStorage.getItem("index");
-console.log("get current index", currentIndex);
+// console.log("get current index", currentIndex);
 function VoiceAnalyser(props) {
   const [loadCnt, setLoadCnt] = useState(0);
   const [loader, setLoader] = useState(false);
@@ -224,7 +223,6 @@ function VoiceAnalyser(props) {
 
   const playAudio = (val) => {
     interactCall("playAudio", "", "DT", "play");
-    console.log( AudioPath,currentIndex,props.storyLine);
     set_temp_audio(new Audio(AudioPath[currentIndex][props.storyLine]));
     setPauseAudio(val);
   };

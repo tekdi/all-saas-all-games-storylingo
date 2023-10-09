@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import p1win from "../assets/p1win.png";
 import p2win from "../assets/p2win.png";
 import draw from "../assets/draw.png";
@@ -10,6 +10,7 @@ import over from "../assets/over.png";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
+import { usePlayers } from "../utility/helperHook";
 
 const players = {
   p1: "ps1",
@@ -26,11 +27,46 @@ const Snowflake = (props) => {
 };
 
 function Result() {
+  const { Player1, Player2 } = usePlayers(); 
   let player1 = localStorage.getItem("p1");
   let player2 = localStorage.getItem("p2");
   let score1 = localStorage.getItem("score1");
   let score2 = localStorage.getItem("score2");
   let numberOfPlayers = localStorage.getItem('players');
+
+  useEffect(()=>{
+    if(!!localStorage.getItem('buddyToken')){
+      send(localStorage.getItem("score1"),localStorage.getItem("score2"))
+    }
+    else{
+      send(localStorage.getItem("score1"))
+    }
+  },[])
+
+  const send = (score1,score2) => {
+    if(!!localStorage.getItem('buddyToken')){
+      const Player1 = (score1 / 100).toPrecision(2);
+      const Player2 = (score2 / 100).toPrecision(2);
+      if (window && window.parent) {
+        window.parent.postMessage({
+          score1: Player1,
+          score2: Player2,
+          message: 'storylingo-app-score',
+        });
+      }
+    }
+      else{
+      const Player1 = (score1 / 100).toPrecision(2);
+      if (window && window.parent) {
+        window.parent.postMessage({
+          score1: Player1,
+          message: 'storylingo-app-score',
+        });
+      }
+      }
+  };
+
+
   function snow() {
     let animationDelay = "0s";
     let fontSize = "100px";
@@ -61,7 +97,7 @@ function Result() {
           alt="logo"
           style={{ cursor: "pointer" }}
         />
-        <Link to='/'>
+        <Link to="/">
           <img
             src={homeicon}
             height="25px"
@@ -70,20 +106,23 @@ function Result() {
           />
         </Link>
       </div>
-      <div style={window.screen.width>767?{ marginTop: "20px" }:{marginTop:'50px'}}>
-        <img
-          src={
-            numberOfPlayers === 'p1s'?
-            over:
-            Number(score1) > Number(score2)
-              ? p1win
-              : Number(score1) === Number(score2)
-              ? draw
-              : p2win
-          }
-          height="60px"
-          alt="p1win"
-        />
+      <div
+        style={
+          window.screen.width > 767
+            ? { marginTop: "20px" }
+            : { marginTop: "50px" }
+        }
+      >
+        {numberOfPlayers === "p1s" ? (
+          <h1 className="mint">GAME OVER</h1> 
+        ) : Number(score1) > Number(score2) ? (
+          <h1 className="mint">{Player1.student_name || "Player 1"} WON</h1>
+        ) : Number(score1) === Number(score2) ? (
+          <h1 className="mint">DRAW</h1>
+        ) : (
+          <h1 className="mint">{Player2.student_name || "Player 2"} WON</h1>
+        )}
+
         <img
           src={trophy}
           style={{ marginLeft: "20px" }}
@@ -103,35 +142,45 @@ function Result() {
             />
           </div>
           <div className="title">
-            <img
-              height="16px"
-              width="auto"
-              src={require(`../assets/pt1.png`)}
-              alt={"pt1"}
-            />
+            <p
+              style={{
+                marginTop: "5px",
+                color: "yellow",
+                fontFamily: "fantasy",
+                fontSize: "16px",
+                fontWeight: "600",
+              }}
+            >
+              {Player1.student_name || "Player 1"}
+            </p>
           </div>
         </div>
-       {numberOfPlayers !== 'p1s' &&
-       <div className="grid-item">
-          <div>
-            <img
-              height="150px"
-              width="auto"
-              style={{ borderRadius: "24px 24px 0 0" }}
-              src={require(`../assets/${players[player2]}.png`)}
-              alt={"ps2"}
-            />
+        {numberOfPlayers !== "p1s" && (
+          <div className="grid-item">
+            <div>
+              <img
+                height="150px"
+                width="auto"
+                style={{ borderRadius: "24px 24px 0 0" }}
+                src={require(`../assets/${players[player2]}.png`)}
+                alt={"ps2"}
+              />
+            </div>
+            <div className="title">
+              <p
+                style={{
+                  marginTop: "5px",
+                  color: "yellow",
+                  fontFamily: "fantasy",
+                  fontSize: "16px",
+                  fontWeight: "600",
+                }}
+              >
+                 {Player2.student_name || "Player 2"}
+              </p>
+            </div>
           </div>
-          <div className="title">
-            <img
-              height="16px"
-              width="auto"
-              src={require(`../assets/pt2.png`)}
-              alt={"pt1"}
-            />
-          </div>
-        </div>
-       }
+        )}
       </div>
       <div className="flex">
         <div className="">
@@ -149,21 +198,23 @@ function Result() {
           </div>
           <div className="coins">{score1}</div>
         </div>
-        {numberOfPlayers !== 'p1s' &&<div className="">
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              className="coin"
-              src={require(`../assets/coin.png`)}
-              alt={"coin"}
-            />
-            <img
-              className="total-coin-heading"
-              src={require(`../assets/total.png`)}
-              alt={"total"}
-            />
+        {numberOfPlayers !== "p1s" && (
+          <div className="">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                className="coin"
+                src={require(`../assets/coin.png`)}
+                alt={"coin"}
+              />
+              <img
+                className="total-coin-heading"
+                src={require(`../assets/total.png`)}
+                alt={"total"}
+              />
+            </div>
+            <div className="coins">{score2}</div>
           </div>
-          <div className="coins">{score2}</div>
-        </div>}
+        )}
       </div>
       {/* <Footer /> */}
       <Link to="/" style={{ textDecoration: "none" }}>

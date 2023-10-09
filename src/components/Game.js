@@ -10,6 +10,7 @@ import VoiceAnalyser from "../utility/VoiceAnalyser";
 import SoundWave from "../utility/SoundWave";
 import { response } from "../services/telementryService";
 import { compareArrays } from "../utility/helper";
+import { usePlayers } from "../utility/helperHook";
 
 // const Story =[
 //   "A man was walking nearby to a group of elephants that was halted by a small rope tied to their front leg.",
@@ -190,7 +191,7 @@ function Game() {
   }, [voiceText]);
 
   console.log("check stoy line", storyLine);
-
+  const { Player1, Player2 } = usePlayers(); 
   return (
     <div className="main-container">
       <div className="top-header">
@@ -211,21 +212,22 @@ function Game() {
       </div>
       <div>
         {storyLine <= Story.length - 1 && (
-          <img
-            src={
-              numberOfPlayers === "p1s"
-                ? playerTitle
-                : storyLine % 2 === 0
-                ? playerTitle
-                : playerTitle2
-            }
-            height="60px"
-            alt="player1"
-            style={window.screen.width < 767 ? { marginTop: "50px" } : {}}
-            className="playPlayerTitle"
-          />
+          <>
+            {numberOfPlayers === "p1s" ? (
+              <h1 className="mint">
+                {Player1.student_name || "Player 1"} Turn
+              </h1>
+            ) : (
+              <h1 className="mint">
+                {(storyLine % 2 === 0 ? Player1.student_name || "Player 1" : Player2.student_name || "Player 2")
+                  }{" "}
+                Turn
+              </h1>
+            )}
+          </>
         )}
       </div>
+
       <div
         className="play-grid"
         style={
@@ -272,12 +274,17 @@ function Game() {
               />
             </div>
             <div>
-              <img
-                height="13px"
-                style={{ marginTop: "5px" }}
-                src={require(`../assets/pt1.png`)}
-                alt="pt1"
-              />
+              <p
+                style={{
+                  marginTop: "5px",
+                  color: "yellow",
+                  fontFamily: "fantasy",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                }}
+              >
+                {Player1.student_name || "Player 1"}
+              </p>
             </div>
             <div style={{ color: "yellow", fontSize: "12px", fontWeight: 600 }}>
               {player1Score}
@@ -343,12 +350,17 @@ function Game() {
               />
             </div>
             <div>
-              <img
-                height="14px"
-                style={{ marginTop: "5px" }}
-                src={require(`../assets/pt2.png`)}
-                alt="pt2"
-              />
+              <p
+                style={{
+                  marginTop: "5px",
+                  color: "yellow",
+                  fontFamily: "fantasy",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                }}
+              >
+                {Player2.student_name || "Player 2"}
+              </p>
             </div>
             <div
               style={{

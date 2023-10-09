@@ -8,6 +8,7 @@ import logo from "../assets/logo.png";
 import newselection from "../assets/audio/selectplayer.mp3";
 import Footer from "./Footer";
 import { interactCall } from "../services/callTelemetryIntract";
+import { usePlayers } from "../utility/helperHook";
 
 const Data = [
   { id: 1, avatar: "p1", selected: "" },
@@ -17,13 +18,14 @@ const Data = [
 ];
 
 function Avatar() {
+  const { Player1, Player2 } = usePlayers(); 
   const [turn, selectTurn] = useState(0);
   const [avatarData, setAvatar] = useState(Data);
   const [switchVal, setSwitch] = useState(false);
   let numberOfPlayers = localStorage.getItem("players");
-  console.log("number of players", numberOfPlayers);
+  // console.log("number of players", numberOfPlayers);
   useEffect(() => {
-    console.log("comig here");
+    // console.log("comig here");
     setAvatar([
       { id: 1, avatar: "p1", selected: "" },
       { id: 2, avatar: "p2", selected: "" },
@@ -38,7 +40,7 @@ function Avatar() {
     playerClicked.play();
     if (numberOfPlayers === "p1s") {
       avatarData.forEach((item, index) => (avatarData[index].selected = ""));
-      temp.selected = "pt1";
+      temp.selected =   Player1.student_name || "Player 1"
       selectTurn(1);
       setSwitch(!switchVal);
       localStorage.setItem("p1", temp.avatar);
@@ -46,20 +48,20 @@ function Avatar() {
       return;
     }
     if (turn === 0) {
-      temp.selected = "pt1";
+      temp.selected = Player1.student_name || "Player 1"
       selectTurn(1);
       localStorage.setItem("p1", temp.avatar);
       setAvatar(avatarData);
     } else {
       if (temp.selected === "" && turn !== 2) {
-        temp.selected = "pt2";
+        temp.selected = Player2.student_name || "Player 2"
         selectTurn(2);
         setAvatar(avatarData);
         localStorage.setItem("p2", temp.avatar);
       }
     }
   };
-  console.log("checking avatardata", turn, numberOfPlayers);
+  // console.log("checking avatardata", turn, numberOfPlayers);
   return (
     <div className="main-container">
       <div className="top-header">
@@ -97,11 +99,23 @@ function Avatar() {
       </div>
       <div>
         {numberOfPlayers === "p1s" ? (
-          <img src={turn1} height="45px" alt="turn1" />
+          <>
+          <h1 className="mint">
+          {Player1.student_name || "Player 1"} Turn
+          </h1>
+          </>
         ) : turn === 0 ? (
-          <img src={turn1} height="45px" alt="turn1" />
+          <>
+           <h1 className="mint">
+           {Player1.student_name || "Player 1"} Turn
+          </h1>
+          </>
         ) : (
-          <img src={turn2} height="45px" alt="turn2" />
+          <>
+           <h1 className="mint">
+           {Player2.student_name || "Player 2"} Turn
+          </h1>
+          </>
         )}
       </div>
       <div className="grid-av">
@@ -132,12 +146,11 @@ function Avatar() {
               </div>
               <div style={{ marginTop: "10px" }}>
                 {item.selected && (
-                  <img
-                    height="15px"
-                    width="auto"
-                    src={require(`../assets/${item.selected}.png`)}
-                    alt={item.selected}
-                  />
+                  <>
+                  <p style={{color:'yellow'}}>
+                  {item.selected}
+                  </p>
+                  </>
                 )}
               </div>
             </div>
