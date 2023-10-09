@@ -15,9 +15,6 @@ function Player() {
   const { Player1, Player2 } = usePlayers(); 
   const [current, setCurrent] = useState("");
   const [isBuddyLogin,setIsBuddyLogin] = useState(!!localStorage.getItem('buddyToken'))
-
-
-
   function setPlayers(item) {
     setCurrent(item);
     localStorage.setItem("players", item);

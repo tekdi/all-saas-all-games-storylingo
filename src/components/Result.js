@@ -34,7 +34,6 @@ function Result() {
   let score2 = localStorage.getItem("score2");
   let numberOfPlayers = localStorage.getItem('players');
 
-
   useEffect(()=>{
     if(!!localStorage.getItem('buddyToken')){
       send(localStorage.getItem("score1"),localStorage.getItem("score2"))

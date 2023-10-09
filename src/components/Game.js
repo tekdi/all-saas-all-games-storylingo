@@ -38,7 +38,6 @@ function Game() {
   const [currentIndex,setCurrentIndex] = useState(0);
   // const [newtextresult, setnewtextresult] = useState('');
   // const [voiceTextHighlight, setVoiceTextHighLight] = useState('');
-
   const initiateValues = async () => {
     const currIndex = await localStorage.getItem("index");
     setCurrentIndex(currIndex);
@@ -211,7 +210,6 @@ function Game() {
           />
         </Link>
       </div>
-
       <div>
         {storyLine <= Story.length - 1 && (
           <>
