@@ -26,6 +26,68 @@ import s3 from "../assets/audio/S3.m4a";
 import s4 from "../assets/audio/S4.m4a";
 import s5 from "../assets/audio/S5.m4a";
 import s6 from "../assets/audio/S6.m4a";
+import Satya1 from '../assets/audio/Satya1.m4a'
+import Satya2 from '../assets/audio/Satya2.m4a'
+import Satya3 from '../assets/audio/Satya3.m4a'
+import Satya4 from '../assets/audio/Satya4.m4a'
+import Satya5 from '../assets/audio/Satya5.m4a'
+import Satya6 from '../assets/audio/Satya6.m4a'
+import Satya7 from '../assets/audio/Satya7.m4a'
+import Satya8 from '../assets/audio/Satya8.m4a'
+import Satya9 from '../assets/audio/Satya9.m4a'
+import Satya10 from '../assets/audio/Satya10.m4a'
+import Satya11 from '../assets/audio/Satya11.m4a'
+import Satya12 from '../assets/audio/Satya12.m4a'
+import Satya13 from '../assets/audio/Satya13.m4a'
+import Satya14 from '../assets/audio/Satya14.m4a'
+import Satya15 from '../assets/audio/Satya15.m4a'
+import Satya16 from '../assets/audio/Satya16.m4a'
+import Satya17 from '../assets/audio/Satya17.m4a'
+import Satya18 from '../assets/audio/Satya18.m4a'
+import Satya19 from '../assets/audio/Satya19.m4a'
+import Satya20 from '../assets/audio/Satya20.m4a'
+import Satya21 from '../assets/audio/Satya21.m4a'
+import Cats_fault1 from '../assets/audio/Cat’s_fault1.m4a'
+import Cats_fault2 from '../assets/audio/Cat’s_fault2.m4a'
+import Cats_fault3 from '../assets/audio/Cat’s_fault3.m4a'
+import Cats_fault4 from '../assets/audio/Cat’s_fault4.m4a'
+import Cats_fault5 from '../assets/audio/Cat’s_fault5.m4a'
+import Cats_fault6 from '../assets/audio/Cat’s_fault6.m4a'
+import Cats_fault7 from '../assets/audio/Cat’s_fault7.m4a'
+import Cats_fault8 from '../assets/audio/Cat’s_fault8.m4a'
+import Cats_fault9 from '../assets/audio/Cat’s_fault9.m4a'
+import Letter1 from "../assets/audio/Letter1.m4a";
+import Letter2 from "../assets/audio/Letter2.m4a";
+import Letter3 from "../assets/audio/Letter3.m4a";
+import Letter4 from "../assets/audio/Letter4.m4a";
+import Letter5 from "../assets/audio/Letter5.m4a";
+import Letter6 from "../assets/audio/Letter6.m4a";
+import Letter7 from "../assets/audio/Letter7.m4a";
+import Letter8 from "../assets/audio/Letter8.m4a";
+import Letter9 from "../assets/audio/Letter9.m4a";
+import Letter10 from "../assets/audio/Letter10.m4a";
+import Letter11 from "../assets/audio/Letter11.m4a";
+import Letter12 from "../assets/audio/Letter12.m4a";
+import Letter13 from "../assets/audio/Letter13.m4a";
+import Letter14 from "../assets/audio/Letter14.m4a";
+import Letter15 from "../assets/audio/Letter15.m4a";
+import Letter16 from "../assets/audio/Letter16.m4a";
+import Azhaguthaan1 from "../assets/audio/Azhaguthaan1.m4a";
+import Azhaguthaan2 from "../assets/audio/Azhaguthaan2.m4a";
+import Azhaguthaan3 from "../assets/audio/Azhaguthaan3.m4a";
+import Azhaguthaan4 from "../assets/audio/Azhaguthaan4.m4a";
+import Azhaguthaan5 from "../assets/audio/Azhaguthaan5.m4a";
+import Azhaguthaan6 from "../assets/audio/Azhaguthaan6.m4a";
+import Azhaguthaan7 from "../assets/audio/Azhaguthaan7.m4a";
+import Azhaguthaan8 from "../assets/audio/Azhaguthaan8.m4a";
+import Azhaguthaan9 from "../assets/audio/Azhaguthaan9.m4a";
+import Azhaguthaan10 from "../assets/audio/Azhaguthaan10.m4a";
+import Azhaguthaan11 from "../assets/audio/Azhaguthaan11.m4a";
+import Azhaguthaan12 from "../assets/audio/Azhaguthaan12.m4a";
+import Azhaguthaan13 from "../assets/audio/Azhaguthaan13.m4a";
+import Azhaguthaan14 from "../assets/audio/Azhaguthaan14.m4a";
+import Azhaguthaan15 from "../assets/audio/Azhaguthaan15.m4a";
+import Azhaguthaan16 from "../assets/audio/Azhaguthaan16.m4a";
 import AudioCompare from "./AudioCompare";
 import Loader from "./Loader";
 import { interactCall } from "../services/callTelemetryIntract";
@@ -143,7 +205,7 @@ const AudioPath = {
   
 };
 const currentIndex = localStorage.getItem("index");
-console.log("get current index", currentIndex);
+// console.log("get current index", currentIndex);
 function VoiceAnalyser(props) {
   const [loadCnt, setLoadCnt] = useState(0);
   const [loader, setLoader] = useState(false);
@@ -161,7 +223,6 @@ function VoiceAnalyser(props) {
 
   const playAudio = (val) => {
     interactCall("playAudio", "", "DT", "play");
-    console.log( AudioPath,currentIndex,props.storyLine);
     set_temp_audio(new Audio(AudioPath[currentIndex][props.storyLine]));
     setPauseAudio(val);
   };

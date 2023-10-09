@@ -98,7 +98,7 @@ function Result() {
           alt="logo"
           style={{ cursor: "pointer" }}
         />
-        <Link to='/'>
+        <Link to="/">
           <img
             src={homeicon}
             height="25px"
@@ -107,20 +107,29 @@ function Result() {
           />
         </Link>
       </div>
-      <div style={window.screen.width>767?{ marginTop: "20px" }:{marginTop:'50px'}}>
-        <img
-          src={
-            numberOfPlayers === 'p1s'?
-            over:
-            Number(score1) > Number(score2)
-              ? p1win
-              : Number(score1) === Number(score2)
-              ? draw
-              : p2win
-          }
-          height="60px"
-          alt="p1win"
-        />
+      <div
+        style={
+          window.screen.width > 767
+            ? { marginTop: "20px" }
+            : { marginTop: "50px" }
+        }
+      >
+        {numberOfPlayers === "p1s" ? (
+          over
+        ) : Number(score1) > Number(score2) ? (
+          Player1.student_name === undefined ? (
+            <h1 className="mint">Player 1 WON</h1>
+          ) : (
+            <h1 className="mint"> {Player1.student_name} WON</h1> 
+          )
+        ) : Number(score1) === Number(score2) ? (
+          <h1 className="mint">DRAW</h1>
+        ) : Player2.student_name === undefined ? (
+          <h1 className="mint">Player 2 WON</h1>
+        ) : (
+          <h1 className="mint"> {Player2.student_name} WON</h1> 
+        )}
+
         <img
           src={trophy}
           style={{ marginLeft: "20px" }}
@@ -140,29 +149,49 @@ function Result() {
             />
           </div>
           <div className="title">
-             <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'16px', fontWeight:'600'}}>
-                {Player1.student_name === undefined?"PLAYER 1":Player1.student_name}
-              </p>
+            <p
+              style={{
+                marginTop: "5px",
+                color: "yellow",
+                fontFamily: "fantasy",
+                fontSize: "16px",
+                fontWeight: "600",
+              }}
+            >
+              {Player1.student_name === undefined
+                ? "PLAYER 1"
+                : Player1.student_name}
+            </p>
           </div>
         </div>
-       {numberOfPlayers !== 'p1s' &&
-       <div className="grid-item">
-          <div>
-            <img
-              height="150px"
-              width="auto"
-              style={{ borderRadius: "24px 24px 0 0" }}
-              src={require(`../assets/${players[player2]}.png`)}
-              alt={"ps2"}
-            />
-          </div>
-          <div className="title">
-               <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'16px', fontWeight:'600'}}>
-                {Player2.student_name === undefined?"PLAYER 2":Player2.student_name}
+        {numberOfPlayers !== "p1s" && (
+          <div className="grid-item">
+            <div>
+              <img
+                height="150px"
+                width="auto"
+                style={{ borderRadius: "24px 24px 0 0" }}
+                src={require(`../assets/${players[player2]}.png`)}
+                alt={"ps2"}
+              />
+            </div>
+            <div className="title">
+              <p
+                style={{
+                  marginTop: "5px",
+                  color: "yellow",
+                  fontFamily: "fantasy",
+                  fontSize: "16px",
+                  fontWeight: "600",
+                }}
+              >
+                {Player2.student_name === undefined
+                  ? "PLAYER 2"
+                  : Player2.student_name}
               </p>
+            </div>
           </div>
-        </div>
-       }
+        )}
       </div>
       <div className="flex">
         <div className="">
@@ -180,21 +209,23 @@ function Result() {
           </div>
           <div className="coins">{score1}</div>
         </div>
-        {numberOfPlayers !== 'p1s' &&<div className="">
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              className="coin"
-              src={require(`../assets/coin.png`)}
-              alt={"coin"}
-            />
-            <img
-              className="total-coin-heading"
-              src={require(`../assets/total.png`)}
-              alt={"total"}
-            />
+        {numberOfPlayers !== "p1s" && (
+          <div className="">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                className="coin"
+                src={require(`../assets/coin.png`)}
+                alt={"coin"}
+              />
+              <img
+                className="total-coin-heading"
+                src={require(`../assets/total.png`)}
+                alt={"total"}
+              />
+            </div>
+            <div className="coins">{score2}</div>
           </div>
-          <div className="coins">{score2}</div>
-        </div>}
+        )}
       </div>
       {/* <Footer /> */}
       <Link to="/" style={{ textDecoration: "none" }}>

@@ -32,7 +32,7 @@ import { usePlayers } from "../utility/helperHook";
 // ];
 
 function Game() {
-  const { Player1, Player2 } = usePlayers(); 
+ 
   const [recordedAudio, setRecordedAudio] = useState("");
   const [Story, setStory] = useState([]);
   const [voiceText, setVoiceText] = useState("");
@@ -195,7 +195,7 @@ function Game() {
   }, [voiceText]);
 
   console.log("check stoy line", storyLine);
-
+  const { Player1, Player2 } = usePlayers(); 
   return (
     <div className="main-container">
       <div className="top-header">
@@ -216,19 +216,15 @@ function Game() {
       </div>
       <div>
         {storyLine <= Story.length - 1 && (
-          <img
-            src={
+          <>
+          {
               numberOfPlayers === "p1s"
-                ? playerTitle
+                ? Player1.student_name === undefined?         <h1 className="mint">Player 1 Turn</h1>:<h1 className="mint">{Player1.student_name} Turn</h1>
                 : storyLine % 2 === 0
-                ? playerTitle
-                : playerTitle2
+                ? Player1.student_name === undefined?         <h1 className="mint">Player 1 Turn</h1>:<h1 className="mint">{Player1.student_name} Turn</h1>
+                : Player2.student_name === undefined?         <h1 className="mint">Player 2 Turn</h1>:<h1 className="mint">{Player2.student_name} Turn</h1>
             }
-            height="60px"
-            alt="player1"
-            style={window.screen.width < 767 ? { marginTop: "50px" } : {}}
-            className="playPlayerTitle"
-          />
+          </>
         )}
       </div>
       <div
@@ -277,8 +273,18 @@ function Game() {
               />
             </div>
             <div>
-               <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'13px', fontWeight:'600'}}>
-                {Player1.student_name === undefined?"PLAYER 1":Player1.student_name}
+              <p
+                style={{
+                  marginTop: "5px",
+                  color: "yellow",
+                  fontFamily: "fantasy",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                }}
+              >
+                {Player1.student_name === undefined
+                  ? "PLAYER 1"
+                  : Player1.student_name}
               </p>
             </div>
             <div style={{ color: "yellow", fontSize: "12px", fontWeight: 600 }}>
@@ -345,9 +351,19 @@ function Game() {
               />
             </div>
             <div>
-                <p style={{marginTop:'5px', color:'yellow', fontFamily:'fantasy', fontSize:'13px', fontWeight:'600'}}>
-                {Player2.student_name === undefined?"PLAYER 2":Player2.student_name}
-                </p>
+              <p
+                style={{
+                  marginTop: "5px",
+                  color: "yellow",
+                  fontFamily: "fantasy",
+                  fontSize: "13px",
+                  fontWeight: "600",
+                }}
+              >
+                {Player2.student_name === undefined
+                  ? "PLAYER 2"
+                  : Player2.student_name}
+              </p>
             </div>
             <div
               style={{

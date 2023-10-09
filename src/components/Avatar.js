@@ -99,11 +99,23 @@ function Avatar() {
       </div>
       <div>
         {numberOfPlayers === "p1s" ? (
-          <img src={turn1} height="45px" alt="turn1" />
+          <>
+          <h1 className="mint">
+          {Player1.student_name === undefined?"Player 1 Turn":Player1.student_name+ " Turn"}
+          </h1>
+          </>
         ) : turn === 0 ? (
-          <img src={turn1} height="45px" alt="turn1" />
+          <>
+           <h1 className="mint">
+          {Player1.student_name === undefined?"Player 1 Turn":Player1.student_name+ " Turn"}
+          </h1>
+          </>
         ) : (
-          <img src={turn2} height="45px" alt="turn2" />
+          <>
+           <h1 className="mint">
+          {Player2.student_name === undefined?"Player 2 Turn":Player2.student_name+ " Turn"}
+          </h1>
+          </>
         )}
       </div>
       <div className="grid-av">
