@@ -32,15 +32,12 @@ import { usePlayers } from "../utility/helperHook";
 // ];
 
 function Game() {
- 
   const [recordedAudio, setRecordedAudio] = useState("");
   const [Story, setStory] = useState([]);
   const [voiceText, setVoiceText] = useState("");
   const [currentIndex,setCurrentIndex] = useState(0);
   // const [newtextresult, setnewtextresult] = useState('');
   // const [voiceTextHighlight, setVoiceTextHighLight] = useState('');
-
-
 
   const initiateValues = async () => {
     const currIndex = await localStorage.getItem("index");

@@ -57,21 +57,35 @@ function Player() {
       </div>
       <div className="player-container">
         <>
-          <p  
-          onClick={() => {
-            interactCall("setPlayer", "player", "DT", "");
-            setPlayers("p1s");
-          }}className={current === "p1s"?"no_Of_Player_Selected":"no_Of_Player"}>{ Player1===''? "1 Player":  Player1.student_name}</p>
-          </>
-       {isBuddyLogin? <>
-            <p    
+          <p
             onClick={() => {
-            interactCall("setPlayer", "player", "DT", "");
-            setPlayers("p2s");
-          }} className={current === "p2s"?"no_Of_Player_Selected":"no_Of_Player"}>{Player2===''? "2 Player": Player2.student_name}</p>
+              interactCall("setPlayer", "player", "DT", "");
+              setPlayers("p1s");
+            }}
+            className={
+              current === "p1s" ? "no_Of_Player_Selected" : "no_Of_Player"
+            }
+          >
+            {Player1 === "" ? "1 Player" : Player1.student_name}
+          </p>
+        </>
+        {isBuddyLogin ? (
+          <>
+            <p
+              onClick={() => {
+                interactCall("setPlayer", "player", "DT", "");
+                setPlayers("p2s");
+              }}
+              className={
+                current === "p2s" ? "no_Of_Player_Selected" : "no_Of_Player"
+              }
+            >
+              {Player2 === "" ? "2 Player" : Player2.student_name}
+            </p>
           </>
-        :""}
-
+        ) : (
+          ""
+        )}
       </div>
       <div className="footerNext">
         <Link to="/avatar">
@@ -81,11 +95,11 @@ function Player() {
             alt="player2"
             style={
               current
-              ? { cursor: "pointer" }
+                ? { cursor: "pointer" }
                 : { opacity: 0.3, pointerEvents: "none" }
             }
             onClick={() => {
-              interactCall("setPlayers", "player",  "DT", "");
+              interactCall("setPlayers", "player", "DT", "");
               setPlayers(current);
               localStorage.setItem("score1", 0);
               localStorage.setItem("score2", 0);
