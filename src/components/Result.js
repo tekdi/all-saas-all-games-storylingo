@@ -115,19 +115,13 @@ function Result() {
         }
       >
         {numberOfPlayers === "p1s" ? (
-          over
+          <h1 className="mint">GAME OVER</h1> 
         ) : Number(score1) > Number(score2) ? (
-          Player1.student_name === undefined ? (
-            <h1 className="mint">Player 1 WON</h1>
-          ) : (
-            <h1 className="mint"> {Player1.student_name} WON</h1> 
-          )
+          <h1 className="mint">{Player1.student_name || "Player 1"} WON</h1>
         ) : Number(score1) === Number(score2) ? (
           <h1 className="mint">DRAW</h1>
-        ) : Player2.student_name === undefined ? (
-          <h1 className="mint">Player 2 WON</h1>
         ) : (
-          <h1 className="mint"> {Player2.student_name} WON</h1> 
+          <h1 className="mint">{Player2.student_name || "Player 2"} WON</h1>
         )}
 
         <img
@@ -158,9 +152,7 @@ function Result() {
                 fontWeight: "600",
               }}
             >
-              {Player1.student_name === undefined
-                ? "PLAYER 1"
-                : Player1.student_name}
+              {Player1.student_name || "Player 1"}
             </p>
           </div>
         </div>
@@ -185,9 +177,7 @@ function Result() {
                   fontWeight: "600",
                 }}
               >
-                {Player2.student_name === undefined
-                  ? "PLAYER 2"
-                  : Player2.student_name}
+                 {Player2.student_name || "Player 2"}
               </p>
             </div>
           </div>

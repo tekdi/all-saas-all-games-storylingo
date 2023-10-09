@@ -23,9 +23,9 @@ function Avatar() {
   const [avatarData, setAvatar] = useState(Data);
   const [switchVal, setSwitch] = useState(false);
   let numberOfPlayers = localStorage.getItem("players");
-  console.log("number of players", numberOfPlayers);
+  // console.log("number of players", numberOfPlayers);
   useEffect(() => {
-    console.log("comig here");
+    // console.log("comig here");
     setAvatar([
       { id: 1, avatar: "p1", selected: "" },
       { id: 2, avatar: "p2", selected: "" },
@@ -40,7 +40,7 @@ function Avatar() {
     playerClicked.play();
     if (numberOfPlayers === "p1s") {
       avatarData.forEach((item, index) => (avatarData[index].selected = ""));
-      temp.selected = Player1.student_name === undefined?"Player 1":Player1.student_name;
+      temp.selected =   Player1.student_name || "Player 1"
       selectTurn(1);
       setSwitch(!switchVal);
       localStorage.setItem("p1", temp.avatar);
@@ -48,20 +48,20 @@ function Avatar() {
       return;
     }
     if (turn === 0) {
-      temp.selected = Player1.student_name === undefined?"Player 1":Player1.student_name;
+      temp.selected = Player1.student_name || "Player 1"
       selectTurn(1);
       localStorage.setItem("p1", temp.avatar);
       setAvatar(avatarData);
     } else {
       if (temp.selected === "" && turn !== 2) {
-        temp.selected = Player2.student_name === undefined?"Player 2":Player2.student_name;
+        temp.selected = Player2.student_name || "Player 2"
         selectTurn(2);
         setAvatar(avatarData);
         localStorage.setItem("p2", temp.avatar);
       }
     }
   };
-  console.log("checking avatardata", turn, numberOfPlayers);
+  // console.log("checking avatardata", turn, numberOfPlayers);
   return (
     <div className="main-container">
       <div className="top-header">
@@ -101,19 +101,19 @@ function Avatar() {
         {numberOfPlayers === "p1s" ? (
           <>
           <h1 className="mint">
-          {Player1.student_name === undefined?"Player 1 Turn":Player1.student_name+ " Turn"}
+          {Player1.student_name || "Player 1"} Turn
           </h1>
           </>
         ) : turn === 0 ? (
           <>
            <h1 className="mint">
-          {Player1.student_name === undefined?"Player 1 Turn":Player1.student_name+ " Turn"}
+           {Player1.student_name || "Player 1"} Turn
           </h1>
           </>
         ) : (
           <>
            <h1 className="mint">
-          {Player2.student_name === undefined?"Player 2 Turn":Player2.student_name+ " Turn"}
+           {Player2.student_name || "Player 2"} Turn
           </h1>
           </>
         )}

@@ -214,19 +214,25 @@ function Game() {
           />
         </Link>
       </div>
+
       <div>
         {storyLine <= Story.length - 1 && (
           <>
-          {
-              numberOfPlayers === "p1s"
-                ? Player1.student_name === undefined?         <h1 className="mint">Player 1 Turn</h1>:<h1 className="mint">{Player1.student_name} Turn</h1>
-                : storyLine % 2 === 0
-                ? Player1.student_name === undefined?         <h1 className="mint">Player 1 Turn</h1>:<h1 className="mint">{Player1.student_name} Turn</h1>
-                : Player2.student_name === undefined?         <h1 className="mint">Player 2 Turn</h1>:<h1 className="mint">{Player2.student_name} Turn</h1>
-            }
+            {numberOfPlayers === "p1s" ? (
+              <h1 className="mint">
+                {Player1.student_name || "Player 1"} Turn
+              </h1>
+            ) : (
+              <h1 className="mint">
+                {(storyLine % 2 === 0 ? Player1.student_name || "Player 1" : Player2.student_name || "Player 2")
+                  }{" "}
+                Turn
+              </h1>
+            )}
           </>
         )}
       </div>
+
       <div
         className="play-grid"
         style={
@@ -282,9 +288,7 @@ function Game() {
                   fontWeight: "600",
                 }}
               >
-                {Player1.student_name === undefined
-                  ? "PLAYER 1"
-                  : Player1.student_name}
+                {Player1.student_name || "Player 1"}
               </p>
             </div>
             <div style={{ color: "yellow", fontSize: "12px", fontWeight: 600 }}>
@@ -360,9 +364,7 @@ function Game() {
                   fontWeight: "600",
                 }}
               >
-                {Player2.student_name === undefined
-                  ? "PLAYER 2"
-                  : Player2.student_name}
+                {Player2.student_name || "Player 2"}
               </p>
             </div>
             <div
