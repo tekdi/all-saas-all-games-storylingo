@@ -10,24 +10,31 @@ import { interactCall } from "../services/callTelemetryIntract";
 const Data = [
   {
     id: 1,
-    avatar: "elephant",
-    title: "Elephant and the Rope",
+    avatar: "eidgah",
+    title: "Eidgah",
     story:{val:[
-      "A man was walking nearby to a group of elephants that was halted by a small rope tied to their front leg.",
-    
-      "He was amazed by the fact that the huge elephants are not even making an attempt to break the rope and set themselves free.",
-    
-      "He saw an elephant trainer standing beside them and he expressed his puzzled state of mind.",
-    
-      "The trainer said “When they are very young and much smaller we use the same size rope to tie them and, at that age, it’s enough to hold them.",
-    
-      "As they grow up, they are conditioned to believe they cannot break away. They believe the rope can still hold them, so they never try to break free.",
-    
-      "Moral of the story: It is the false belief of the elephants that denied their freedom for a lifetime.",
-    
-      "Likewise, many people are not trying to work towards success in their life just because they failed once before.",
-    
-      "So keep on trying and don’t get tied up with some false beliefs of failure."
+      "How wonderful and beautiful was the morning of Eid!",
+      "The trees looked greener, the field more festive, the sky had a lovely pink glow.",
+      "The sun seemed brighter and more dazzling than before to wish the world a very happy Eid.",
+      "The village was filled with excitement. Everyone was up early to go to the Eidgah.",
+      "The boys were more excited than the others. They had been talking about it all the time.",
+      "Finally the day had come. And now they were impatient.",
+      "They were taking their treasure out of their pockets, counting and recounting it before putting it back.",
+      "Mahmood counted “One, two, ten, twelve”– he had twelve coins. Mohsin had “One, two, three, eight, nine, fifteen” coins. With this money, they would buy countless things: toys, sweets, paper-pipes, rubber balls – and much more.",
+      "The happiest of the boys was Hamid. He was only four, thin and poorly dressed.",
+      "Last year his father had died of cholera. Then his mother also died. From then Hamid lived with his old Granny Ameena and was as happy as a lark.",
+      "She told him that his father had gone to earn money. And that his mother had gone to Allah to get lovely gifts for him.",
+      "This made Hamid very happy. Hamid had no shoes on his feet; the cap on his head was soiled and tattered.",
+      "He knew that his father would come back with sacks full of silver and his mother with gifts from Allah.",
+      "Then he would have more than Mahmood, Mohsin, Noorey and Sammi.",
+      "Hamid’s Granny Ameena was sad. It was Eid and she did not have even a handful of grains. If only her son were there, it would have been a different kind of Eid!",
+      "Hamid went to his grandmother and said, “Granny, I will be the first to get back. Don’t worry!” Ameena was worried.",
+      "Other boys were going out with their fathers. How could she let him go to the fair all by himself?",
+      "Hamid left with the other boys. Hamid was like one with wings on his feet. They ran on ahead of the elders and waited for them under a tree.",
+      "They reached the suburbs of the town. On both sides of the road were big houses of the rich.",
+      "In the gardens, mango and leechee trees were full of fruits. Then they came across the stores of the sweets - vendors.",
+      "All decorated so gaily! Every store had sweets piled up in heaps like mountains.",
+
     ]},
     lang:'en'
      
@@ -99,48 +106,74 @@ const Data = [
   },
   {
     id: 5,
-    avatar: "found",
-    title: "TAMIL STORY 1",
+    avatar: "letter",
+    title: "லெட்டர்",
     story:
     {val:[
-    "Sophie was a little girl who loved to explore",
-    "She lived in a small town with her parents", 
-    "and she would often wander off into the woods behind their house, looking for adventure.",
+    "மேரி பெட்டியைத் திறந்தாள். அட்டை ஒன்று இருந்தது.",
+    "இது என்ன?", 
+    "இது லெட்டர்.",
+    "பாட்டி, இது லெட்டர் என்றாள்.",
+    "இது உன் அப்பா எழுதுனலெட்டர்",
+    "இது என் அப்பா எழுதுனலெட்டர் என்றாள் ஆமாம், ஆமாம். ஹாஸ்டலில் படிக்கும் போோது உன் அப்பா எழுதுன லெட்டர் என்றார் தாத்தா.",
+    "இது அப்பா ஹாஸ்டலில் படிக்கும்  போது எழுதுனலெட்டர் என்றாள். ஆமாம், ஆமாம். உன் அப்பா திருச்சி ஹாஸ்டலில்  படித்தார். அப்போ எழுதுனலெட்டர் என்றார் அத்தை.",
+    "இது என் அப்பா எழுதுனலெட்டர்.  திருச்சியில் ஹாஸ்டலில் படிக்கும் போோது என்றாள். நானும் உன் அப்பாவும் திருச்சியில்  படித்தோம். 10 ஆம் வகுப்பு படிக்கும்  போது எழுதுனலெட்டர் என்றார் மாமா",
+    "இது என்ன தெரியுமா?  லெட்டர். என் அப்பா எழுதுனலெட்டர். அப்பா திருச்சி ஹாஸ்டலில்  படிக்கும் போது எழுதுனலெட்டர். அப்பாவும் மாமாவும் பத்தாவது  படிக்கும்போது எழுதுனலெட்டர் என்றாள்.",
+    "இது என்ன தெரியுமா?  லெட்டர். என் அப்பா எழுதுனலெட்டர். அப்பா திருச்சி ஹாஸ்டலில் படிக்கும்  போோது எழுதுனலெட்டர். அப்பாவும் மாமாவும் பத்தாவது  படிக்கும்போது எழுதுனலெட்டர். வா! வந்து பார் என்றாள்.",
+    "“அப்பா! அப்பா! இது என்ன தெரியுமா?  லெட்டருப்பா! நீங்க எழுதுனலெட்டர்.  நீங்க பேனாவில் எழுதுனலெட்டர். நீங்க திருச்சி ஹாஸ்டலில் படிக்கும் போது எழுதுனது. நீங்களும் மாமாவும் பத்தாவது  படிக்கும்போது எழுதுனலெட்டர்  என்றாள்.",
+    "ஆமாம். இது நான் எழுதுனலெட்டர்.  நான் திருச்சி ஹாஸ்டலில் படிக்கும்  போது எழுதுனலெட்டர். நான் பத்தாவது படிக்கும்போது  எழுதுனலெட்டர் என்றார் அப்பா.",
+    "உனக்குப் படிக்கிறேன் கேள்  என்று படித்துக் காட்டினார். அன்புள்ள அம்மா அப்பா அவர்களுக்கு...",
+    "நானும் லெட்டர் எழுதுவேன். அன்புள்ள அப்பாவுக்கு... என்று  நானும் லெட்டர் எழுதுவேன். பத்தாவது படிப்பேன். படிக்கும்போது லெட்டர்  எழுதுவேன்.",
+    "நான் லெட்டர் எழுதுவேன். அன்புள்ள அம்மாவுக்கு... என்று லெட்டர் எழுதுவேன். பத்தாவது படிப்பேன். படிக்கும்போது லெட்டர் எழுதுவேன். இதோ, இந்த லெட்டரைப் போல் லெட்டர் எழுதுவேன்",
+    "உங்களுக்கும் லெட்டர் எழுத ஆசை வருதா? யாருக்கு எழுதப் போறீங்க?",
     ]},
     lang:'ta'
   },
   {
     id: 6,
-    avatar: "found",
-    title: "TAMIL STORY 2",
+    avatar: "Azhaguthaan",
+    title: "வித்தியாசம் தான் அழகு",
     story:{val:[
-      "Sophie was a little girl who loved to explore",
-      "She lived in a small town with her parents", 
-      "and she would often wander off into the woods behind their house, looking for adventure.",
+      "ஏ.. ராமு.. என்னாச்சு! பல்லு விழுந்திருச்சு! ‘ஓட்டப் பல்லு’.. சொல்றாங்க இப்பதான் வித்தியாசமா இருக்க. ஓட்டப் பல்லும் அழகுதான். சிரி பாக்கலாம்!",
+      "என்ன ராணி? கண்ணாடி போட்டிருக்கேன் வகுப்பில் பாரு.  யாரும் போடலை.  நீ மட்டும் தான்.  வித்தியாசமா இருக்க.  இதுவும் அழகுதான்!", 
+      "சொல்லு கண்மணி!  எனக்கு இனிப்பே பிடிக்காது. கசப்பு தான் பிடிக்கும்.  பாவக்காய்க் குழம்பு வச்சா... நிறைய சோறு தின்பேன். அட... பிடிச்சதைப் பேசுற!  வித்தியாசமா இருக்க.  இப்படியே இரு!",
+      "என்ன மாதப்பா? சந்தோசமா இருந்தால்  ‘டான்ஸ்’ ஆடுவேன்.  நேற்று தெருவில் ஆடிட்டேன்’’ அட... நீ வெளிப்படையா இருக்க! வித்தியாசமா இருக்க.  நல்லா ஆடு.", 
+      "என்ன மசனி?  என் பேர் சொல்லி சிரிக்கிறாங்க! உன் பேர் இங்ககே புதுசு. வித்தியாசமா இருக்கு.  அதானே அழகு.  சந்தோசப்படு மசனி.",
+      "என்னாச்சு லதா? ஓட்டப் பந்தயம். நான் தான் கடைசி. கடைசியா வருவதும் அழகு தான். வித்தியாசமாக இரு.", 
+      "பாண்டிக்கு என்ன? “இடது கையில் தான் சாப்பிடுறேன். இடது கையில் எழுதுறேன். எதையும் இடது கையில் செய்றேன்” அதனால் என்ன?  இடது கையில் அழகா எழுதுற. வகுப்பில் பாரு. உன்போல் யாரும் இல்லை. நீ வித்தியாசமா இருக்க. இதுவும் அழகுதான்.",
+      "சொல்லு வாணி! நான் குண்டா இருக்கேன்.  அதனால் என்ன? உடம்பைக் குறைக்கணும்.  இப்ப நீ வித்தியாசமா இருக்க. இதுவும் அழகுதான்!", 
+      "என்னாச்சு குமாரி? எனக்குப் பிடிக்கலை.  'நோ' சொன்னேன். அப்பா திட்டினார். உன் தைரியமே அழகு. வித்தியாசமா இருக்க. இப்படியே இரு.",
+      "என்னாச்சு பாலு? நான் கத்திப் பேசுறேனாம். டீச்சர் சொல்றாங்க.  நான் வீட்டிலும் அப்படித்தான். எப்போதும் அப்படித்தான். கத்திப் பேசுவது உன் இயல்பு! வித்தியாசமாக இரு. உன் இயல்பு தான் அழகு!", 
+      "சொல்லு பாத்திமா? எனக்கு எத்துப் பல் எத்துப் பல்லும் அழகு தான். வித்தியாசமா இருக்க. சிரி பாத்திமா. ",
+      "என்ன பிரபு? எங்க வயலில் நடவு. ஸ்கூலுக்கு நான் மட்டும் லேட்டு. பரவாயில்லை. உனக்கு விவசாயமும் தெரிஞ்சிருக்கு! நீ வித்தியாசமா இருக்க!", 
+      "என்னாச்சு கென்னடி? நான் ரொம்பக் குள்ளம் மத்தவங்க உன்னனப் போல இல்லை. நீ வித்தியாசமா இருக்க? குதி! விளையாடு! ",
+      "என்னாச்சு முத்து? யாராச்சும் அழுதால்  எனக்கும் அழுகை வருது. அட... வித்தியாசமா இருக்கே! இப்ப சிரி.",
+      "சொல்லு அப்துல்! என் முகத்தில் மட்டும் வெள்ளை இது குறை இல்லை அப்துல். நீ வித்தியாசமா இருக்க. இதுவும் அழகுதான்!",
+      "நான் மட்டும் இப்படி இருக்ககேன். உனக்கு சக்கரம் இருக்கு! நாங்களும் இருக்கோம். சந்தோசமாய் இரு. வித்தியாசமாய் இரு. அதுவே அழகு! "
       ]},
       lang:'ta'
   },
-  {
-    id: 7,
-    avatar: "found",
-    title: "LOST AND FOUND",
-    story:
-    "Sophie was a little girl who loved to explore. She lived in a small town with her parents, and she would often wander off into the woods behind their house, looking for adventure.",
-  },
-  {
-    id: 8,
-    title: "SINGING IN THE RAIN",
-    avatar: "singing",
-    story:
-      "Satya was a young boy who loved to explore the forest near his village. He often went out alone, taking in the sights and sounds of the natural world around him.",
-  },
-  {
-    id: 9,
-    avatar: "helping",
-    title: "A HELPING HAND",
-    story:
-      "Sophie was walking home from school when she noticed an elderly woman struggling with her groceries. The woman was walking with a cane and had several heavy bags in her arms.",
-  },
+  // {
+  //   id: 7,
+  //   avatar: "found",
+  //   title: "LOST AND FOUND",
+  //   story:
+  //   "Sophie was a little girl who loved to explore. She lived in a small town with her parents, and she would often wander off into the woods behind their house, looking for adventure.",
+  // },
+  // {
+  //   id: 8,
+  //   title: "SINGING IN THE RAIN",
+  //   avatar: "singing",
+  //   story:
+  //     "Satya was a young boy who loved to explore the forest near his village. He often went out alone, taking in the sights and sounds of the natural world around him.",
+  // },
+  // {
+  //   id: 9,
+  //   avatar: "helping",
+  //   title: "A HELPING HAND",
+  //   story:
+  //     "Sophie was walking home from school when she noticed an elderly woman struggling with her groceries. The woman was walking with a cane and had several heavy bags in her arms.",
+  // },
 ];
 
 function Home() {
@@ -185,7 +218,7 @@ function Home() {
             <Link
               to="/player"
               style={
-                index < 4
+                index < 6
                   ? { textDecoration: "none" }
                   : {
                     textDecoration: "none",

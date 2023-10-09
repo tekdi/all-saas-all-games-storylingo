@@ -1,49 +1,31 @@
 import React, { useState, useEffect } from "react";
-import v1 from "../assets/audio/V1.m4a";
-import v2 from "../assets/audio/V2.m4a";
-import v3 from "../assets/audio/V3.m4a";
-import v4 from "../assets/audio/V4.m4a";
-import v5 from "../assets/audio/V5.m4a";
-import v6 from "../assets/audio/V6.m4a";
-import v7 from "../assets/audio/V7.m4a";
-import v8 from "../assets/audio/V8.m4a";
+import Eidgah2 from "../assets/audio/Eidgah2.m4a";
+import Eidgah3 from "../assets/audio/Eidgah3.m4a";
+import Eidgah4 from "../assets/audio/Eidgah4.m4a";
+import Eidgah5 from "../assets/audio/Eidgah5.m4a";
+import Eidgah6 from "../assets/audio/Eidgah6.m4a";
+import Eidgah7 from "../assets/audio/Eidgah7.m4a";
+import Eidgah8 from "../assets/audio/Eidgah8.m4a";
+import Eidgah9 from "../assets/audio/Eidgah9.m4a";
+import Eidgah10 from "../assets/audio/Eidgah10.m4a";
+import Eidgah11 from "../assets/audio/Eidgah11.m4a";
+import Eidgah12 from "../assets/audio/Eidgah12.m4a";
+import Eidgah13 from "../assets/audio/Eidgah13.m4a";
+import Eidgah14 from "../assets/audio/Eidgah14.m4a";
+import Eidgah15 from "../assets/audio/Eidgah15.m4a";
+import Eidgah16 from "../assets/audio/Eidgah16.m4a";
+import Eidgah17 from "../assets/audio/Eidgah17.m4a";
+import Eidgah18 from "../assets/audio/Eidgah18.m4a";
+import Eidgah19 from "../assets/audio/Eidgah19.m4a";
+import Eidgah20 from "../assets/audio/Eidgah20.m4a";
+import Eidgah21 from "../assets/audio/Eidgah21.m4a";
+import Eidgah22 from "../assets/audio/Eidgah22.m4a";
 import s1 from "../assets/audio/S1.m4a";
 import s2 from "../assets/audio/S2.m4a";
 import s3 from "../assets/audio/S3.m4a";
 import s4 from "../assets/audio/S4.m4a";
 import s5 from "../assets/audio/S5.m4a";
 import s6 from "../assets/audio/S6.m4a";
-import Satya1 from '../assets/audio/Satya1.m4a'
-import Satya2 from '../assets/audio/Satya2.m4a'
-import Satya3 from '../assets/audio/Satya3.m4a'
-import Satya4 from '../assets/audio/Satya4.m4a'
-import Satya5 from '../assets/audio/Satya5.m4a'
-import Satya6 from '../assets/audio/Satya6.m4a'
-import Satya7 from '../assets/audio/Satya7.m4a'
-import Satya8 from '../assets/audio/Satya8.m4a'
-import Satya9 from '../assets/audio/Satya9.m4a'
-import Satya10 from '../assets/audio/Satya10.m4a'
-import Satya11 from '../assets/audio/Satya11.m4a'
-import Satya12 from '../assets/audio/Satya12.m4a'
-import Satya13 from '../assets/audio/Satya13.m4a'
-import Satya14 from '../assets/audio/Satya14.m4a'
-import Satya15 from '../assets/audio/Satya15.m4a'
-import Satya16 from '../assets/audio/Satya16.m4a'
-import Satya17 from '../assets/audio/Satya17.m4a'
-import Satya18 from '../assets/audio/Satya18.m4a'
-import Satya19 from '../assets/audio/Satya19.m4a'
-import Satya20 from '../assets/audio/Satya20.m4a'
-import Satya21 from '../assets/audio/Satya21.m4a'
-import Cats_fault1 from '../assets/audio/Cat’s_fault1.m4a'
-import Cats_fault2 from '../assets/audio/Cat’s_fault2.m4a'
-import Cats_fault3 from '../assets/audio/Cat’s_fault3.m4a'
-import Cats_fault4 from '../assets/audio/Cat’s_fault4.m4a'
-import Cats_fault5 from '../assets/audio/Cat’s_fault5.m4a'
-import Cats_fault6 from '../assets/audio/Cat’s_fault6.m4a'
-import Cats_fault7 from '../assets/audio/Cat’s_fault7.m4a'
-import Cats_fault8 from '../assets/audio/Cat’s_fault8.m4a'
-import Cats_fault9 from '../assets/audio/Cat’s_fault9.m4a'
-
 import AudioCompare from "./AudioCompare";
 import Loader from "./Loader";
 import { interactCall } from "../services/callTelemetryIntract";
@@ -58,14 +40,27 @@ import S3Client from '../config/config';
 
 const AudioPath = {
   1: {
-    0: v1,
-    1: v2,
-    2: v3,
-    3: v4,
-    4: v5,
-    5: v6,
-    6: v7,
-    7: v8,
+    0: Eidgah2,
+    1: Eidgah3,
+    2: Eidgah4,
+    3: Eidgah5,
+    4: Eidgah6,
+    5: Eidgah7,
+    6: Eidgah8,
+    7: Eidgah9,
+    8:Eidgah10,
+    9:Eidgah11,
+    10:Eidgah12,
+    11:Eidgah13,
+    12:Eidgah14,
+    13:Eidgah15,
+    14:Eidgah16,
+    15:Eidgah17,
+    16:Eidgah18,
+    17:Eidgah19,
+    18:Eidgah20,
+    19:Eidgah21,
+    20:Eidgah22
   },
   2: {
     0: s1,
@@ -109,6 +104,43 @@ const AudioPath = {
     7: Cats_fault8,
     8: Cats_fault9,
   },
+  5: {
+    0: Letter1,
+    1: Letter2,
+    2: Letter3,
+    3: Letter4,
+    4: Letter5,
+    5: Letter6,
+    6: Letter7,
+    7: Letter8,
+    8: Letter9,
+    9: Letter10,
+    10: Letter11,
+    11: Letter12,
+    12: Letter13,
+    13: Letter14,
+    14: Letter15,
+    15: Letter16,
+  },
+  6: {
+    0: Azhaguthaan1,
+    1: Azhaguthaan2,
+    2: Azhaguthaan3,
+    3: Azhaguthaan4,
+    4: Azhaguthaan5,
+    5: Azhaguthaan6,
+    6: Azhaguthaan7,
+    7: Azhaguthaan8,
+    8: Azhaguthaan9,
+    9:Azhaguthaan10,
+    10:Azhaguthaan11,
+    11:Azhaguthaan12,
+    13:Azhaguthaan13,
+    14:Azhaguthaan14,
+    15:Azhaguthaan15,
+    16:Azhaguthaan16,
+  },
+  
 };
 const currentIndex = localStorage.getItem("index");
 console.log("get current index", currentIndex);
