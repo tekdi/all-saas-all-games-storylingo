@@ -14,7 +14,9 @@ import { usePlayers } from "../utility/helperHook";
 function Player() {
   const { Player1, Player2 } = usePlayers(); 
   const [current, setCurrent] = useState("");
+  const [currentUserLogin,setIsCurrentUserLogin] = useState(!!localStorage.getItem('token'))
   const [isBuddyLogin,setIsBuddyLogin] = useState(!!localStorage.getItem('buddyToken'))
+  
   function setPlayers(item) {
     setCurrent(item);
     localStorage.setItem("players", item);
@@ -52,7 +54,8 @@ function Player() {
           }
         />
       </div>
-      <div className="player-container">
+      {
+        currentUserLogin?  <div className="player-container">
         <>
           <p
             onClick={() => {
@@ -66,7 +69,7 @@ function Player() {
             {Player1 === "" ? "1 Player" : Player1.student_name}
           </p>
         </>
-        {isBuddyLogin ? (
+        { isBuddyLogin ? (
           <>
             <p
               onClick={() => {
@@ -83,7 +86,37 @@ function Player() {
         ) : (
           ""
         )}
+      </div> :  <div className="player-container">
+        <>
+          <p
+            onClick={() => {
+              interactCall("setPlayer", "player", "DT", "");
+              setPlayers("p1s");
+            }}
+            className={
+              current === "p1s" ? "no_Of_Player_Selected" : "no_Of_Player"
+            }
+          >
+            {Player1 === "" ? "1 Player" : Player1.student_name}
+          </p>
+        </>
+      
+          <>
+            <p
+              onClick={() => {
+                interactCall("setPlayer", "player", "DT", "");
+                setPlayers("p2s");
+              }}
+              className={
+                current === "p2s" ? "no_Of_Player_Selected" : "no_Of_Player"
+              }
+            >
+              {Player2 === "" ? "2 Player" : Player2.student_name}
+            </p>
+          </>
+        ) : (
       </div>
+      }
       <div className="footerNext">
         <Link to="/avatar">
           <img
