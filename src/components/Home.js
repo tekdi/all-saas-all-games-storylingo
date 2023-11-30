@@ -189,12 +189,15 @@ function Home() {
   return (
     <div className="main-container">
       <div className="top-header">
-        <img
+        {/* <img
           src={logo}
           height="25px"
           alt="logo"
           style={{ cursor: "pointer" }}
-        />
+        /> */}
+        <h1 className="min-test">
+          STORYLINGO
+        </h1>
         <Link to='/'>
           <img
             src={homeicon}
@@ -205,12 +208,15 @@ function Home() {
         </Link>
       </div>
       <div>
-        <img
+        {/* <img
           src={story}
           height="70px"
           alt="story"
           style={window.screen.width>767?{ marginTop: "20px" }:{marginTop:'60px'}}
-        />
+        /> */}
+          <h1 className="min-selectstory">
+          SELECT STORY
+        </h1>
       </div>
       <div className="grid">
         {Data.map((item, index) => {

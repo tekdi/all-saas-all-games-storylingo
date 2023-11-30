@@ -1,10 +1,10 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
-import Avatar from "./components/Avatar";
-import Home from "./components/Home";
-import Game from "./components/Game";
-import Result from "./components/Result";
-import Player from "./components/Player";
+// import Avatar from "./components/Avatar";
+// import Home from "./components/Home";
+// import Game from "./components/Game";
+// import Result from "./components/Result";
+// import Player from "./components/Player";
 // Telemetry
 import "@project-sunbird/telemetry-sdk/index.js";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
@@ -78,10 +78,16 @@ function App() {
       window.removeEventListener("beforeunload", cleanup);
     };
   }, []);
+  const Home = React.lazy(()=> import('./components/Home'))
+  const Player = React.lazy(()=> import('./components/Player'))
+  const Avatar = React.lazy(()=> import('./components/Avatar'))
+  const Game = React.lazy(()=> import('./components/Game'))
+  const Result = React.lazy(()=> import('./components/Result'))
 
   return (
     <div className="App">
       <HashRouter>
+      <Suspense fallback={<div>Loading...</div>}> 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="player" element={<Player />} />
@@ -89,6 +95,7 @@ function App() {
           <Route path="play" element={<Game />} />
           <Route path="result" element={<Result />} />
         </Routes>
+      </Suspense>
       </HashRouter>
     </div>
   );

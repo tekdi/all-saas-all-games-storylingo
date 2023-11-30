@@ -292,12 +292,23 @@ function Game() {
           </div>
         )}
         <div className="read">
+          <div className="position-set">
+          <p className="story-text">
+           {Story[storyLine] }
+           </p>
+
+          </div>
           <img
-            src={
-              storyLine <= Story.length - 1
-                ? require(`../assets/story${currentIndex}${storyLine}.png`)
+
+          src={ storyLine <= Story.length - 1 
+                ? require(`../assets/blank_text.png`)
                 : require(`../assets/over.png`)
-            }
+              }
+            // src={
+            //   storyLine <= Story.length - 1
+            //     ? require(`../assets/story${currentIndex}${storyLine}.png`)
+            //     : require(`../assets/over.png`)
+            // }
             className={
               storyLine <= Story.length - 1 ? "read-img" : "read-img-over"
             }
