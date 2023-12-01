@@ -190,27 +190,42 @@ export const getEventOptions = () => {
     ? emis_username + "/" + buddyUserId
     : emis_username || "anonymous";
 
-  return {
-    object: {},
-    context: {
-      pdata: {
-        // optional
-        id: process.env.REACT_APP_id, // Producer ID. For ex: For sunbird it would be "portal" or "genie"
-        ver: process.env.REACT_APP_ver, // Version of the App
-        pid: process.env.REACT_APP_pid, // Optional. In case the component is distributed, then which instance of that component
+    let myCurrectLanguage = localStorage.getItem('apphomelang')
+
+    return {
+      object: {},
+      context: {
+        pdata: {
+          // optional
+          id: process.env.REACT_APP_id, // Producer ID. For ex: For sunbird it would be "portal" or "genie"
+          ver: process.env.REACT_APP_ver, // Version of the App
+          pid: process.env.REACT_APP_pid, // Optional. In case the component is distributed, then which instance of that component
+        },
+        env: process.env.REACT_APP_env,
+        uid: `${
+          isBuddyLogin
+            ? emis_username + '/' + buddyUserId
+            : emis_username || 'anonymous'
+        }`,
+        cdata:  userId == 'anonymous'
+        ? [
+          { id: contentSessionId, type: 'ContentSession' },
+          { id: playSessionId, type: 'PlaySession' },
+          { id: userId, type: userType },
+          { id: myCurrectLanguage, type: 'language' },
+        ]:[
+          { id: contentSessionId, type: 'ContentSession' },
+          { id: playSessionId, type: 'PlaySession' },
+          { id: userId, type: userType },
+          { id: myCurrectLanguage, type: 'language' },
+          { id: userDetails?.school_name, type: 'school_name' },
+          {
+            id: userDetails?.class_studying_id,
+            type: 'class_studying_id',
+          },
+          { id: userDetails?.udise_code, type: 'udise_code' },
+        ],
+        rollup: {},
       },
-      env: process.env.REACT_APP_env,
-      uid: `${
-        isBuddyLogin
-          ? emis_username + "/" + buddyUserId
-          : emis_username || "anonymous"
-      }`,
-      cdata: [
-        { id: contentSessionId, type: "ContentSession" },
-        { id: playSessionId, type: "PlaySession" },
-        { id: userId, type: userType },
-      ],
-      rollup: {},
-    },
-  };
+    };
 };

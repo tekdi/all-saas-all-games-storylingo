@@ -114,7 +114,6 @@ function Player() {
               {Player2 === "" ? "2 Player" : Player2.student_name}
             </p>
           </>
-       
       </div>
       }
       <div className="footerNext">

@@ -296,26 +296,17 @@ function Game() {
           <p className="story-text">
            {Story[storyLine] }
            </p>
-
           </div>
           <img
-
           src={ storyLine <= Story.length - 1 
                 ? require(`../assets/blank_text.png`)
                 : require(`../assets/over.png`)
               }
-            // src={
-            //   storyLine <= Story.length - 1
-            //     ? require(`../assets/story${currentIndex}${storyLine}.png`)
-            //     : require(`../assets/over.png`)
-            // }
             className={
               storyLine <= Story.length - 1 ? "read-img" : "read-img-over"
             }
             alt="read"
-            // style={storyLine <8  && window.screen.width>767? { height: "170px" } : {height:"90px !important" }}
           />
-          {/* <div className='story-txt'> {Story[storyLine]}</div> */}
           {voiceAnimate && (
             <div style={{ position: "relative", bottom: "25%" }}>
               <SoundWave />

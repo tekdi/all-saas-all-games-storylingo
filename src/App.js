@@ -1,10 +1,5 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
-// import Avatar from "./components/Avatar";
-// import Home from "./components/Home";
-// import Game from "./components/Game";
-// import Result from "./components/Result";
-// import Player from "./components/Player";
 // Telemetry
 import "@project-sunbird/telemetry-sdk/index.js";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";

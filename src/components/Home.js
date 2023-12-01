@@ -189,12 +189,6 @@ function Home() {
   return (
     <div className="main-container">
       <div className="top-header">
-        {/* <img
-          src={logo}
-          height="25px"
-          alt="logo"
-          style={{ cursor: "pointer" }}
-        /> */}
         <h1 className="min-test">
           STORYLINGO
         </h1>
