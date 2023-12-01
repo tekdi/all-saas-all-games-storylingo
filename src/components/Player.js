@@ -128,7 +128,7 @@ function Player() {
                 : { opacity: 0.3, pointerEvents: "none" }
             }
             onClick={() => {
-              interactCall("setPlayer", "player", "DT", "");
+              interactCall("setPlayers", "player", "DT", "");
               setPlayers(current);
               localStorage.setItem("score1", 0);
               localStorage.setItem("score2", 0);
