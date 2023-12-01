@@ -114,7 +114,6 @@ function Player() {
               {Player2 === "" ? "2 Player" : Player2.student_name}
             </p>
           </>
-       
       </div>
       }
       <div className="footerNext">
@@ -129,7 +128,7 @@ function Player() {
                 : { opacity: 0.3, pointerEvents: "none" }
             }
             onClick={() => {
-              interactCall("setPlayers", "player", "DT", "");
+              interactCall("setPlayer", "player", "DT", "");
               setPlayers(current);
               localStorage.setItem("score1", 0);
               localStorage.setItem("score2", 0);
