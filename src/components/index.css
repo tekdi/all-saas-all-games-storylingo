@@ -67,10 +67,13 @@
   height:30px !important
 }
 }
-@media only screen and (min-width: 767px) {
+@media only screen and (min-width: 601px){
   .mobile-bar-container {
     display: none !important;
   }
+}
+@media only screen and (min-width: 767px) {
+ 
   .playPlayerTitle {
     height: 60px;
   }
