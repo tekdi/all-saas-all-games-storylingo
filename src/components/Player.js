@@ -59,7 +59,7 @@ function Player() {
         <>
           <p
             onClick={() => {
-              interactCall("setPlayer", "player", "DT", "");
+              interactCall("setPlayer_p1", "player", "DT", "");
               setPlayers("p1s");
             }}
             className={
@@ -73,7 +73,7 @@ function Player() {
           <>
             <p
               onClick={() => {
-                interactCall("setPlayer", "player", "DT", "");
+                interactCall("BuddyPlayer_p2", "player", "DT", "");
                 setPlayers("p2s");
               }}
               className={
@@ -90,7 +90,7 @@ function Player() {
         <>
           <p
             onClick={() => {
-              interactCall("setPlayer", "player", "DT", "");
+              interactCall("BuddyPlayer_p1", "player", "DT", "");
               setPlayers("p1s");
             }}
             className={
@@ -104,7 +104,7 @@ function Player() {
           <>
             <p
               onClick={() => {
-                interactCall("setPlayer", "player", "DT", "");
+                interactCall("setPlayer_p2", "player", "DT", "");
                 setPlayers("p2s");
               }}
               className={
@@ -128,7 +128,7 @@ function Player() {
                 : { opacity: 0.3, pointerEvents: "none" }
             }
             onClick={() => {
-              interactCall("setPlayers", "player", "DT", "");
+              interactCall("avatar", "player", "DT", "");
               setPlayers(current);
               localStorage.setItem("score1", 0);
               localStorage.setItem("score2", 0);

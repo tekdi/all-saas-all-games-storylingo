@@ -124,7 +124,7 @@ function Avatar() {
             <div key={item.id} className="grid-item-av">
               <div
                 onClick={() => {
-                  interactCall("selectPlayer", "avatar", "DT", "");
+                  interactCall("selectAvtar", "avatar", "DT", "");
                   selectPlayer(item.id);
                 }}
               >
