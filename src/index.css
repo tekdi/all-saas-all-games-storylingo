@@ -170,7 +170,10 @@ h1 {
   width: 500px;
   height: 500px; */
  }
- @media only screen and (max-width: 600px) {
+
+
+
+ @media only screen and (min-width:0) and (max-width: 600px) {
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
       "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -183,8 +186,31 @@ h1 {
     background-position: bottom;
     height: 100%;
   }
+
+  .position-set{
+    margin-top: -18px;
+  }
+
+  .story-text {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    width: 90%;
+    padding-left: 24px !important;
+    padding-right: 45px;
+   }
+   .storylingo-img{
+    cursor: pointer;
+    height: 15px;
+  }
+
+  .player_text{
+    font-size: 20px;
+    margin-top: 50px;
+    position: relative;
+  }
 }
-@media only screen and (max-width: 1597px) {
+@media only screen and (min-width:600px) and (max-width: 1597px) {
   .position-set{
     display: flex;
     flex-direction: column;
@@ -201,4 +227,12 @@ h1 {
     font-weight: bold;
     width: 400px;
    }
+  .storylingo-img{
+    cursor: pointer;
+    height: 25px;
+  }
+}
+.storylingo-img{
+  cursor: pointer;
+  height: 25px;
 }
