@@ -196,10 +196,10 @@ function Game() {
     <div className="main-container">
       <div className="top-header">
         <img
+        className="storylingo-img"
           src={logo}
-          height="25px"
+          // height="25px"
           alt="logo"
-          style={{ cursor: "pointer" }}
         />
         <Link to="/">
           <img
@@ -214,7 +214,7 @@ function Game() {
         {storyLine <= Story.length - 1 && (
           <>
             {numberOfPlayers === "p1s" ? (
-              <h1 className="mint">
+              <h1 className="mint player_text">
                 {Player1.student_name || "Player 1"} Turn
               </h1>
             ) : (
@@ -412,6 +412,7 @@ function Game() {
             <div style={{ position: "relative" }}>
               <img
                 // height="13px"
+                className="img-responsive"
                 style={{ marginTop: "10px", position: "relative" }}
                 src={require("../assets/mobileGameBar.svg").default}
                 alt="mobileBar"
