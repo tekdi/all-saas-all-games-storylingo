@@ -67,7 +67,7 @@ function Avatar() {
       <div className="top-header">
         <img
           src={logo}
-          className="storylingo-img"
+          className="storyling-logo"
           alt="logo"
         />
         <Link to="/">

@@ -196,7 +196,7 @@ function Game() {
     <div className="main-container">
       <div className="top-header">
         <img
-        className="storylingo-img"
+        className="storyling-logo"
           src={logo}
           alt="logo"
         />
@@ -410,7 +410,6 @@ function Game() {
             </div>
             <div style={{ position: "relative" }}>
               <img
-                className="img-responsive"
                 style={{ marginTop: "10px", position: "relative" }}
                 src={require("../assets/mobileGameBar.svg").default}
                 alt="mobileBar"
