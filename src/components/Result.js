@@ -93,9 +93,8 @@ function Result() {
       <div className="top-header">
         <img
           src={logo}
-          height="25px"
+          className="storyling-logo"
           alt="logo"
-          style={{ cursor: "pointer" }}
         />
         <Link to="/">
           <img
