@@ -198,7 +198,6 @@ function Game() {
         <img
         className="storylingo-img"
           src={logo}
-          // height="25px"
           alt="logo"
         />
         <Link to="/">
@@ -411,7 +410,6 @@ function Game() {
             </div>
             <div style={{ position: "relative" }}>
               <img
-                // height="13px"
                 className="img-responsive"
                 style={{ marginTop: "10px", position: "relative" }}
                 src={require("../assets/mobileGameBar.svg").default}

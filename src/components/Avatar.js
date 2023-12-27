@@ -67,9 +67,8 @@ function Avatar() {
       <div className="top-header">
         <img
           src={logo}
-          height="25px"
+          className="storylingo-img"
           alt="logo"
-          style={{ cursor: "pointer" }}
         />
         <Link to="/">
           <img

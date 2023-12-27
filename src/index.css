@@ -196,14 +196,9 @@ h1 {
     font-size: 18px;
     font-weight: bold;
     width: 90%;
-    padding-left: 24px !important;
+    padding-left: 24px;
     padding-right: 45px;
    }
-   .storylingo-img{
-    cursor: pointer;
-    height: 15px;
-  }
-
   .player_text{
     font-size: 20px;
     margin-top: 50px;
@@ -227,10 +222,6 @@ h1 {
     font-weight: bold;
     width: 400px;
    }
-  .storylingo-img{
-    cursor: pointer;
-    height: 25px;
-  }
 }
 .storylingo-img{
   cursor: pointer;
