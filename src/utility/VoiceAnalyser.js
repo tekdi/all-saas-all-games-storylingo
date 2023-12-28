@@ -279,7 +279,6 @@ function VoiceAnalyser(props) {
     };
   }, [temp_audio]);
 
-
   useEffect(() => {
     initiateValues();
   }, []);
