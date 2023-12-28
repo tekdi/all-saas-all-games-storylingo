@@ -233,9 +233,9 @@ function VoiceAnalyser(props) {
       : 'en'
   );
 
-  const DEFAULT_ASR_LANGUAGE_CODE = "ai4bharat/whisper-medium-en--gpu--t4";
-  const HINDI_ASR_LANGUAGE_CODE = 'ai4bharat/conformer-hi-gpu--t4';
-  const TAMIL_ASR_LANGUAGE_CODE = 'ai4bharat/conformer-multilingual-dravidian-gpu--t4';
+  const DEFAULT_ASR_LANGUAGE_CODE = 'ai4bharat/whisper--gpu-t4';
+  const HINDI_ASR_LANGUAGE_CODE = 'ai4bharat/conformer-hi--gpu-t4';
+  const TAMIL_ASR_LANGUAGE_CODE = 'ai4bharat/conformer-multilingual-dravidian--gpu-t4';
 
   const [asr_language_code, set_asr_language_code] = useState(
     DEFAULT_ASR_LANGUAGE_CODE
