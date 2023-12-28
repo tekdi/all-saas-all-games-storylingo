@@ -279,9 +279,7 @@ function VoiceAnalyser(props) {
     };
   }, [temp_audio]);
 
-    const [isEmptyAudio, setIsEmptyAudio] = useState(
-    false
-  )
+
   useEffect(() => {
     initiateValues();
   }, []);
@@ -319,13 +317,7 @@ function VoiceAnalyser(props) {
 
   useEffect(() => {
     if (recordedAudioBase64 !== "") {
-      if(!isEmptyAudio){
-        alert("Please Speak again");
-        setLoader(false);
-      }else{
-        fetchASROutput(lang_code, recordedAudioBase64);
-        setIsEmptyAudio(false)
-      }
+      fetchASROutput(lang_code, recordedAudioBase64);
     }
   }, [recordedAudioBase64]);
   useEffect(() => {
@@ -449,7 +441,6 @@ function VoiceAnalyser(props) {
             if (audioPermission) {
               return (
                 <AudioCompare
-                setIsEmptyAudio = {setIsEmptyAudio}
                   setRecordedAudio={setRecordedAudio}
                   playAudio={playAudio}
                   pauseAudio={pauseAudio}
