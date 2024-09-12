@@ -1,92 +1,96 @@
-import React, { useState, useEffect } from "react";
-import AudioAnalyser from "react-audio-analyser";
-import mic from "../assets/mic.png";
-import listen from "../assets/listen.png";
-import pause from "../assets/pause.png";
-import mic_on from "../assets/mic.png";
-import { interactCall } from "../services/callTelemetryIntract";
-import useAudioDetection from "./useAudioDetection";
+import React, { useState, useRef, useEffect } from 'react';
+import RecordRTC from 'recordrtc';
+import mic from '../assets/mic.png';
+import listen from '../assets/listen.png';
+import pause from '../assets/pause.png';
+import mic_on from '../assets/mic.png';
+import { interactCall } from '../services/callTelemetryIntract';
 
 const AudioRecorderCompair = (props) => {
-
-  const { startDetection, stopDetection, isSilent, isRunning, audioDetected } = useAudioDetection();
-
-  const [status, setStatus] = useState("");
-  const [audioSrc, setAudioSrc] = useState("");
-  const [audioType, setAudioType] = useState("audio/wav");
+  const [status, setStatus] = useState('');
+  const [audioSrc, setAudioSrc] = useState('');
   const [pauseAudio, setPauseAudio] = useState(false);
-
-
-  const handleAudioControl = async (status) => {
-    if (status === "recording") {
-      await startDetection();
-    } else {
-      stopDetection();
-    }
-    setStatus(status);
-  };
-
-  useEffect(()=>{
-      if(props.setIsEmptyAudio){
-        props.setIsEmptyAudio(audioDetected);
-    }
-  },[audioDetected])
-
-  const changeScheme = (e) => {
-    setAudioType(e.target.value);
-  };
+  const recorderRef = useRef(null);
+  const mediaStreamRef = useRef(null);
 
   useEffect(() => {
-    setAudioType("audio/wav");
+    return () => {
+      // Cleanup when component unmounts
+      if (recorderRef.current) {
+        recorderRef.current.destroy();
+      }
+      if (mediaStreamRef.current) {
+        mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+      }
+    };
   }, []);
 
-  const audioProps = {
-    audioType,
-    status,
-    audioSrc,
-    timeslice: 1000,
-    startCallback: (e) => {
-      setAudioSrc("");
-      props.setRecordedAudio("");
-      console.log("succ start", e);
-    },
-    pauseCallback: (e) => {
-      console.log("succ pause", e);
-    },
-    stopCallback: (e) => {
-      let temp_audioSrc = window.URL.createObjectURL(e);
-      setAudioSrc(temp_audioSrc);
-      props.setRecordedAudio(temp_audioSrc);
-      console.log("succ stop", e);
-    },
-    onRecordCallback: (e) => {
-      console.log("recording", e);
-    },
-    errorCallback: (err) => {
-      console.log("error", err);
-    },
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaStreamRef.current = stream;
+
+      // Use RecordRTC to start recording
+      recorderRef.current = new RecordRTC(stream, {
+        type: 'audio',
+        mimeType: 'audio/wav',
+        recorderType: RecordRTC.StereoAudioRecorder,
+        numberOfAudioChannels: 1,
+        desiredSampRate: 16000,
+        disableLogs: true,
+      });
+
+      recorderRef.current.startRecording();
+      setStatus('recording');
+      setAudioSrc('');
+      props.setRecordedAudio('');
+    } catch (err) {
+      console.error('Failed to start recording:', err);
+    }
+  };
+
+  const stopRecording = () => {
+    if (recorderRef.current) {
+      recorderRef.current.stopRecording(() => {
+        const blob = recorderRef.current.getBlob();
+        if (blob) {
+          const tempAudioSrc = window.URL.createObjectURL(blob);
+          setAudioSrc(tempAudioSrc);
+          props.setRecordedAudio(tempAudioSrc);
+
+          // Stop the media stream
+          if (mediaStreamRef.current) {
+            mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+          }
+
+          setStatus('inactive');
+        } else {
+          console.error('Failed to retrieve audio blob.');
+        }
+      });
+    }
   };
 
   return (
     <div>
       <div>
         {(() => {
-          if (status === "recording") {
+          if (status === 'recording') {
             return (
               <>
                 <img
                   src={mic_on}
                   className="micimg mic_stop_record"
                   onClick={() => {
-                    interactCall("mic_stop", "play", "DT", "stop");
-                    document.getElementById("stopaudio_compair").click();
+                    interactCall('mic_stop', 'play', 'DT', 'stop');
+                    stopRecording();
                   }}
-                  alt="micon"
+                  alt="mic_on"
                   style={{
-                    position: "fixed",
-                    bottom: "30px",
-                    cursor: "pointer",
-                    height: "38px",
+                    position: 'fixed',
+                    bottom: '30px',
+                    cursor: 'pointer',
+                    height: '38px',
                   }}
                 />
               </>
@@ -95,38 +99,38 @@ const AudioRecorderCompair = (props) => {
             return (
               <div
                 style={{
-                  display: "flex",
-                  width: "13%",
-                  justifyContent: "space-between",
-                  margin: "0 auto",
-                  position: "fixed",
-                  bottom: "30px",
-                  left: "44%",
+                  display: 'flex',
+                  width: '13%',
+                  justifyContent: 'space-between',
+                  margin: '0 auto',
+                  position: 'fixed',
+                  bottom: '30px',
+                  left: '44%',
                 }}
                 className="game-action-button"
               >
                 {!pauseAudio ? (
                   <div
                     onClick={() => {
-                      interactCall("listen", "play", "DT", "pause");
+                      interactCall('listen', 'play', 'DT', 'pause');
                       props.playAudio(true);
                       setPauseAudio(true);
                     }}
                   >
                     <img
                       src={listen}
-                      alt={"listen"}
+                      alt={'listen'}
                       style={{
-                        cursor: "pointer",
-                        padding: "5px",
-                        height: "38px",
+                        cursor: 'pointer',
+                        padding: '5px',
+                        height: '38px',
                       }}
                     />
                     <div
                       style={{
-                        color: "white",
-                        fontWeight: "600",
-                        fontSize: "14px",
+                        color: 'white',
+                        fontWeight: '600',
+                        fontSize: '14px',
                       }}
                     >
                       LISTEN
@@ -135,25 +139,25 @@ const AudioRecorderCompair = (props) => {
                 ) : (
                   <div
                     onClick={() => {
-                      interactCall("pause", "play", "DT", "pause");
+                      interactCall('pause', 'play', 'DT', 'pause');
                       props.playAudio(false);
                       setPauseAudio(false);
                     }}
                   >
                     <img
                       src={pause}
-                      alt={"pause"}
+                      alt={'pause'}
                       style={{
-                        cursor: "pointer",
-                        padding: "5px",
-                        height: "38px",
+                        cursor: 'pointer',
+                        padding: '5px',
+                        height: '38px',
                       }}
                     />
                     <div
                       style={{
-                        color: "white",
-                        fontWeight: "600",
-                        fontSize: "14px",
+                        color: 'white',
+                        fontWeight: '600',
+                        fontSize: '14px',
                       }}
                     >
                       PAUSE
@@ -165,21 +169,21 @@ const AudioRecorderCompair = (props) => {
                     src={mic}
                     className="micimg mic_record"
                     onClick={() => {
-                      interactCall("speak", "play", "DT", "play");
-                      document.getElementById("startaudio_compair").click();
+                      interactCall('speak', 'play', 'DT', 'play');
+                      startRecording();
                     }}
                     style={{
-                      cursor: "pointer",
-                      padding: "5px",
-                      height: "38px",
+                      cursor: 'pointer',
+                      padding: '5px',
+                      height: '38px',
                     }}
                     alt="mic"
                   />
                   <div
                     style={{
-                      color: "white",
-                      fontWeight: "600",
-                      fontSize: "14px",
+                      color: 'white',
+                      fontWeight: '600',
+                      fontSize: '14px',
                     }}
                   >
                     SPEAK
@@ -189,31 +193,6 @@ const AudioRecorderCompair = (props) => {
             );
           }
         })()}
-        <AudioAnalyser {...audioProps} className="hide">
-          <div className="btn-box hide">
-            <br />
-            <button
-              className="btn"
-              id="startaudio_compair"
-              onClick={() => {
-                interactCall("Start", "play", "DT", "play");
-                handleAudioControl("recording");
-              }}
-            >
-              Start
-            </button>
-            <button
-              className="btn"
-              id="stopaudio_compair"
-              onClick={() => {
-                interactCall("stop", "play", "DT", "pause");
-                handleAudioControl("inactive");
-              }}
-            >
-              Stop
-            </button>
-          </div>
-        </AudioAnalyser>
       </div>
     </div>
   );
