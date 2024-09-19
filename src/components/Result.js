@@ -27,7 +27,7 @@ const Snowflake = (props) => {
 };
 
 function Result() {
-  const { Player1, Player2 } = usePlayers(); 
+  const { Player1, Player2 } = usePlayers();
   let player1 = localStorage.getItem("p1");
   let player2 = localStorage.getItem("p2");
   let score1 = localStorage.getItem("score1");
@@ -113,7 +113,7 @@ function Result() {
         }
       >
         {numberOfPlayers === "p1s" ? (
-          <h1 className="mint">GAME OVER</h1> 
+          <h1 className="mint">GAME OVER</h1>
         ) : Number(score1) > Number(score2) ? (
           <h1 className="mint">{Player1.student_name || "Player 1"} WON</h1>
         ) : Number(score1) === Number(score2) ? (
@@ -145,7 +145,7 @@ function Result() {
               style={{
                 marginTop: "5px",
                 color: "yellow",
-                fontFamily: "fantasy",
+                fontFamily: '"Comic Sans MS", "Papyrus", cursive',
                 fontSize: "16px",
                 fontWeight: "600",
               }}
@@ -170,7 +170,7 @@ function Result() {
                 style={{
                   marginTop: "5px",
                   color: "yellow",
-                  fontFamily: "fantasy",
+                  fontFamily: '"Comic Sans MS", "Papyrus", cursive',
                   fontSize: "16px",
                   fontWeight: "600",
                 }}
