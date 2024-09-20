@@ -170,7 +170,7 @@ function checkTelemetryMode(currentMode) {
 }
 
 export const getEventOptions = () => {
-  var emis_username = "anonymous";
+  var emis_username = "";
   var buddyUserId = "";
 
   if (localStorage.getItem("token") !== null) {
@@ -188,32 +188,30 @@ export const getEventOptions = () => {
   const userType = isBuddyLogin ? "Buddy User" : "User";
   const userId = isBuddyLogin
     ? emis_username + "/" + buddyUserId
-    : emis_username || "anonymous";
+    : emis_username || localStorage.getItem('virtualId') || "anonymous";
 
-    let myCurrectLanguage = localStorage.getItem('apphomelang')
+  let myCurrectLanguage = localStorage.getItem('apphomelang')
 
-    return {
-      object: {},
-      context: {
-        pdata: {
-          // optional
-          id: process.env.REACT_APP_id, // Producer ID. For ex: For sunbird it would be "portal" or "genie"
-          ver: process.env.REACT_APP_ver, // Version of the App
-          pid: process.env.REACT_APP_pid, // Optional. In case the component is distributed, then which instance of that component
-        },
-        env: process.env.REACT_APP_env,
-        uid: `${
-          isBuddyLogin
-            ? emis_username + '/' + buddyUserId
-            : emis_username || 'anonymous'
-        }`,
-        cdata:  userId == 'anonymous'
+  return {
+    object: {},
+    context: {
+      pdata: {
+        // optional
+        id: process.env.REACT_APP_id, // Producer ID. For ex: For sunbird it would be "portal" or "genie"
+        ver: process.env.REACT_APP_ver, // Version of the App
+        pid: process.env.REACT_APP_pid, // Optional. In case the component is distributed, then which instance of that component
+      },
+      env: process.env.REACT_APP_env,
+      uid: isBuddyLogin
+        ? `${emis_username}/${buddyUserId}`
+        : emis_username || localStorage.getItem('virtualId') || 'anonymous',
+      cdata: userId == 'anonymous'
         ? [
           { id: contentSessionId, type: 'ContentSession' },
           { id: playSessionId, type: 'PlaySession' },
           { id: userId, type: userType },
           { id: myCurrectLanguage, type: 'language' },
-        ]:[
+        ] : [
           { id: contentSessionId, type: 'ContentSession' },
           { id: playSessionId, type: 'PlaySession' },
           { id: userId, type: userType },
@@ -225,7 +223,7 @@ export const getEventOptions = () => {
           },
           { id: userDetails?.udise_code, type: 'udise_code' },
         ],
-        rollup: {},
-      },
-    };
+      rollup: {},
+    },
+  };
 };
