@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 // Telemetry
 import "@project-sunbird/telemetry-sdk/index.js";
@@ -79,10 +79,46 @@ function App() {
   const Game = React.lazy(()=> import('./components/Game'))
   const Result = React.lazy(()=> import('./components/Result'))
 
+  useEffect(() => {
+
+    const handleMessage = (event) => {
+
+      // Log the full event data to see what is being received
+      console.log("Received message data:", event.data);
+
+      // Destructure the message data
+      const { token, buddyToken, messageType, contentSessionId } = event.data;
+
+      // Check if the expected data exists
+      if (messageType === 'customData') {
+        if (token) {
+          localStorage.setItem('token', token);
+          console.log('Token:', token);
+        }
+        if (buddyToken) {
+          localStorage.setItem('buddyToken', buddyToken);
+          console.log('Buddy Token:', buddyToken);
+        }
+        if (contentSessionId) {
+          localStorage.setItem('contentSessionId', contentSessionId);
+          console.log('Buddy Token:', contentSessionId);
+        }
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
+
+
+
   return (
     <div className="App">
       <HashRouter>
-      <Suspense fallback={<div>Loading...</div>}> 
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="player" element={<Player />} />
