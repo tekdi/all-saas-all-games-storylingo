@@ -83,8 +83,6 @@ function App() {
 
     const handleMessage = (event) => {
 
-      // Log the full event data to see what is being received
-      console.log("Received message data:", event.data);
 
       // Destructure the message data
       const { token, buddyToken, messageType, contentSessionId } = event.data;
@@ -93,15 +91,12 @@ function App() {
       if (messageType === 'customData') {
         if (token) {
           localStorage.setItem('token', token);
-          console.log('Token:', token);
         }
         if (buddyToken) {
           localStorage.setItem('buddyToken', buddyToken);
-          console.log('Buddy Token:', buddyToken);
         }
         if (contentSessionId) {
           localStorage.setItem('contentSessionId', contentSessionId);
-          console.log('Buddy Token:', contentSessionId);
         }
       }
     };
