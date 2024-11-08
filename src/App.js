@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 // Telemetry
 import "@project-sunbird/telemetry-sdk/index.js";
@@ -79,10 +79,31 @@ function App() {
   const Game = React.lazy(()=> import('./components/Game'))
   const Result = React.lazy(()=> import('./components/Result'))
 
+  useEffect(() => {
+    const handleMessage = (event) => {
+      // Destructure the message data
+      const { messageType, localStorageKeyValue } = event.data;
+      if (messageType === "customData") {
+        for (const item of localStorageKeyValue) {
+          const key = item.key;
+          const value = item.value;
+
+          localStorage.setItem(key, value);
+        }
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
+
+
+
   return (
     <div className="App">
       <HashRouter>
-      <Suspense fallback={<div>Loading...</div>}> 
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="player" element={<Player />} />
