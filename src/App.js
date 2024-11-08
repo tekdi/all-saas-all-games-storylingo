@@ -80,31 +80,21 @@ function App() {
   const Result = React.lazy(()=> import('./components/Result'))
 
   useEffect(() => {
-
     const handleMessage = (event) => {
-
-
       // Destructure the message data
-      const { token, buddyToken, messageType, contentSessionId } = event.data;
+      const { messageType, localStorageKeyValue } = event.data;
+      if (messageType === "customData") {
+        for (const item of localStorageKeyValue) {
+          const key = item.key;
+          const value = item.value;
 
-      // Check if the expected data exists
-      if (messageType === 'customData') {
-        if (token) {
-          localStorage.setItem('token', token);
-        }
-        if (buddyToken) {
-          localStorage.setItem('buddyToken', buddyToken);
-        }
-        if (contentSessionId) {
-          localStorage.setItem('contentSessionId', contentSessionId);
+          localStorage.setItem(key, value);
         }
       }
     };
-
-    window.addEventListener('message', handleMessage);
-
+    window.addEventListener("message", handleMessage);
     return () => {
-      window.removeEventListener('message', handleMessage);
+      window.removeEventListener("message", handleMessage);
     };
   }, []);
 
