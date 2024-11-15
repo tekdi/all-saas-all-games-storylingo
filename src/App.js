@@ -79,23 +79,34 @@ function App() {
   const Game = React.lazy(()=> import('./components/Game'))
   const Result = React.lazy(()=> import('./components/Result'))
 
-  useEffect(() => {
-    const handleMessage = (event) => {
-      // Destructure the message data
-      const { messageType, localStorageKeyValue } = event.data;
-      if (messageType === "customData") {
-        for (const item of localStorageKeyValue) {
-          const key = item.key;
-          const value = item.value;
+  function getParameter(key, location) {
+    if (key) {
+      const query = new URLSearchParams(location);
+      return query.get(key);
+    }
+  }
 
-          localStorage.setItem(key, value);
-        }
-      }
-    };
-    window.addEventListener("message", handleMessage);
-    return () => {
-      window.removeEventListener("message", handleMessage);
-    };
+  useEffect(() => {
+    let virtualId;
+
+    if (getParameter("virtualId", window.location.search)) {
+      virtualId = getParameter("virtualId", window.location.search);
+    } else {
+      virtualId = localStorage.getItem("virtualId");
+    }
+    localStorage.setItem("virtualId", virtualId);
+
+    const contentSessionId = getParameter(
+      "contentSessionId",
+      window.location.search
+    );
+    if (contentSessionId) {
+      localStorage.setItem("contentSessionId", contentSessionId);
+    }
+    const token = getParameter("token", window.location.search);
+    if (token) {
+      localStorage.setItem("token", token);
+    }
   }, []);
 
 
