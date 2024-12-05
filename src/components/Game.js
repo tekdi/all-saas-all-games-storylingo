@@ -191,7 +191,7 @@ function Game() {
   }, [voiceText]);
 
   console.log("check stoy line", storyLine);
-  const { Player1, Player2 } = usePlayers(); 
+  const { Player1, Player2 } = usePlayers();
   return (
     <div className="main-container">
       <div className="top-header">
@@ -277,7 +277,7 @@ function Game() {
                 style={{
                   marginTop: "5px",
                   color: "yellow",
-                  fontFamily: "fantasy",
+                  fontFamily: '"Comic Sans MS", "Papyrus", cursive',
                   fontSize: "13px",
                   fontWeight: "600",
                 }}
@@ -297,7 +297,7 @@ function Game() {
            </p>
           </div>
           <img
-          src={ storyLine <= Story.length - 1 
+          src={ storyLine <= Story.length - 1
                 ? require(`../assets/blank_text.png`)
                 : require(`../assets/over.png`)
               }
@@ -355,7 +355,7 @@ function Game() {
                 style={{
                   marginTop: "5px",
                   color: "yellow",
-                  fontFamily: "fantasy",
+                   fontFamily: '"Comic Sans MS", "Papyrus", cursive',
                   fontSize: "13px",
                   fontWeight: "600",
                 }}
