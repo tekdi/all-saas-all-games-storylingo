@@ -31,19 +31,9 @@ jobs:
           rm -rf node_modules
           rm -f package-lock.json
 
-      - name: Install Compatible ajv Versions
-        run: |
-          npm install ajv@8 ajv-keywords@5 --save
-
       - name: Install Dependencies
         run: npm install --legacy-peer-deps
-
-      - name: Audit Dependencies
-        run: npm audit || true
-
-      - name: Clean Build Directory
-        run: rm -rf ./build
-
+        
       - name: Build and Package Application
         env:
           WDS_SOCKET_PORT: ${{ vars.WDS_SOCKET_PORT }}
@@ -74,7 +64,7 @@ jobs:
           FAST_REFRESH: ${{ vars.FAST_REFRESH }}
           REACT_APP_AWS_ACCESS_KEY_ID: ${{ secrets.REACT_APP_AWS_ACCESS_KEY_ID }}
           REACT_APP_AWS_SECRET_ACCESS_KEY: ${{ secrets.REACT_APP_AWS_SECRET_ACCESS_KEY }}
-          CI: false
+          CI: false # Disabling CI to not treat warnings as errors
         run: npm run build
 
       - name: Deploy to S3 Bucket
@@ -84,6 +74,7 @@ jobs:
         run: |
           echo "REACT_APP_AWS_S3_BUCKET_NAME: $REACT_APP_AWS_S3_BUCKET_NAME"
           echo "AWS_REGION: $AWS_REGION"
+          echo "secrate": ${{ vars.REACT_APP_AWS_S3_BUCKET_NAME }}
 
       - name: Cloudfront Invalidation
         uses: chetan/invalidate-cloudfront-action@master
