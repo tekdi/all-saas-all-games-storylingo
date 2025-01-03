@@ -3,7 +3,7 @@ name: ALL SAAS LEARN FRIEND BUILD Deployment
 on:
   push:
     branches:
-      - main
+      - release-0.3
 
 jobs:
   deploy:
